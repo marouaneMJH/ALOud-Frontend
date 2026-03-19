@@ -8,23 +8,23 @@ export const seasonsApi = {
         pageSize: number = 10,
     ): Promise<PaginatedResponse<SeasonDto>> {
         return apiClient.get<PaginatedResponse<SeasonDto>>(
-            `/seasons?page=${page}&pageSize=${pageSize}`,
+            `/admin/seasons?page=${page}&pageSize=${pageSize}`,
         );
     },
 
     async getSeason(id: string): Promise<SeasonDto> {
-        return apiClient.get<SeasonDto>(`/seasons/${id}`);
+        return apiClient.get<SeasonDto>(`/admin/seasons/${id}`);
     },
 
     async createSeason(data: CreateSeasonDto): Promise<SeasonDto> {
-        return apiClient.post<SeasonDto>("/seasons", data);
+        return apiClient.post<SeasonDto>("/admin/seasons", data);
     },
 
     async updateSeason(id: string, data: UpdateSeasonDto): Promise<SeasonDto> {
-        return apiClient.put<SeasonDto>(`/seasons/${id}`, data);
+        return apiClient.put<SeasonDto>(`/admin/seasons/${id}`, data);
     },
 
     async deleteSeason(id: string): Promise<void> {
-        return apiClient.delete<void>(`/seasons/${id}`);
+        return apiClient.delete<void>(`/admin/seasons/${id}`);
     },
 };

@@ -8,23 +8,23 @@ export const notesApi = {
         pageSize: number = 10,
     ): Promise<PaginatedResponse<NoteDto>> {
         return apiClient.get<PaginatedResponse<NoteDto>>(
-            `/notes?page=${page}&pageSize=${pageSize}`,
+            `/admin/notes?page=${page}&pageSize=${pageSize}`,
         );
     },
 
     async getNote(id: string): Promise<NoteDto> {
-        return apiClient.get<NoteDto>(`/notes/${id}`);
+        return apiClient.get<NoteDto>(`/admin/notes/${id}`);
     },
 
     async createNote(data: CreateNoteDto): Promise<NoteDto> {
-        return apiClient.post<NoteDto>("/notes", data);
+        return apiClient.post<NoteDto>("/admin/notes", data);
     },
 
     async updateNote(id: string, data: UpdateNoteDto): Promise<NoteDto> {
-        return apiClient.put<NoteDto>(`/notes/${id}`, data);
+        return apiClient.put<NoteDto>(`/admin/notes/${id}`, data);
     },
 
     async deleteNote(id: string): Promise<void> {
-        return apiClient.delete<void>(`/notes/${id}`);
+        return apiClient.delete<void>(`/admin/notes/${id}`);
     },
 };

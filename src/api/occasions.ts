@@ -12,26 +12,26 @@ export const occasionsApi = {
         pageSize: number = 10,
     ): Promise<PaginatedResponse<OccasionDto>> {
         return apiClient.get<PaginatedResponse<OccasionDto>>(
-            `/occasions?page=${page}&pageSize=${pageSize}`,
+            `/admin/occasions?page=${page}&pageSize=${pageSize}`,
         );
     },
 
     async getOccasion(id: string): Promise<OccasionDto> {
-        return apiClient.get<OccasionDto>(`/occasions/${id}`);
+        return apiClient.get<OccasionDto>(`/admin/occasions/${id}`);
     },
 
     async createOccasion(data: CreateOccasionDto): Promise<OccasionDto> {
-        return apiClient.post<OccasionDto>("/occasions", data);
+        return apiClient.post<OccasionDto>("/admin/occasions", data);
     },
 
     async updateOccasion(
         id: string,
         data: UpdateOccasionDto,
     ): Promise<OccasionDto> {
-        return apiClient.put<OccasionDto>(`/occasions/${id}`, data);
+        return apiClient.put<OccasionDto>(`/admin/occasions/${id}`, data);
     },
 
     async deleteOccasion(id: string): Promise<void> {
-        return apiClient.delete<void>(`/occasions/${id}`);
+        return apiClient.delete<void>(`/admin/occasions/${id}`);
     },
 };

@@ -8,23 +8,23 @@ export const familiesApi = {
         pageSize: number = 10,
     ): Promise<PaginatedResponse<FamilyDto>> {
         return apiClient.get<PaginatedResponse<FamilyDto>>(
-            `/families?page=${page}&pageSize=${pageSize}`,
+            `/admin/families?page=${page}&pageSize=${pageSize}`,
         );
     },
 
     async getFamily(id: string): Promise<FamilyDto> {
-        return apiClient.get<FamilyDto>(`/families/${id}`);
+        return apiClient.get<FamilyDto>(`/admin/families/${id}`);
     },
 
     async createFamily(data: CreateFamilyDto): Promise<FamilyDto> {
-        return apiClient.post<FamilyDto>("/families", data);
+        return apiClient.post<FamilyDto>("/admin/families", data);
     },
 
     async updateFamily(id: string, data: UpdateFamilyDto): Promise<FamilyDto> {
-        return apiClient.put<FamilyDto>(`/families/${id}`, data);
+        return apiClient.put<FamilyDto>(`/admin/families/${id}`, data);
     },
 
     async deleteFamily(id: string): Promise<void> {
-        return apiClient.delete<void>(`/families/${id}`);
+        return apiClient.delete<void>(`/admin/families/${id}`);
     },
 };

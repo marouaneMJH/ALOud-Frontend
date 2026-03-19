@@ -8,23 +8,23 @@ export const tagsApi = {
         pageSize: number = 10,
     ): Promise<PaginatedResponse<TagDto>> {
         return apiClient.get<PaginatedResponse<TagDto>>(
-            `/tags?page=${page}&pageSize=${pageSize}`,
+            `/admin/tags?page=${page}&pageSize=${pageSize}`,
         );
     },
 
     async getTag(id: string): Promise<TagDto> {
-        return apiClient.get<TagDto>(`/tags/${id}`);
+        return apiClient.get<TagDto>(`/admin/tags/${id}`);
     },
 
     async createTag(data: CreateTagDto): Promise<TagDto> {
-        return apiClient.post<TagDto>("/tags", data);
+        return apiClient.post<TagDto>("/admin/tags", data);
     },
 
     async updateTag(id: string, data: UpdateTagDto): Promise<TagDto> {
-        return apiClient.put<TagDto>(`/tags/${id}`, data);
+        return apiClient.put<TagDto>(`/admin/tags/${id}`, data);
     },
 
     async deleteTag(id: string): Promise<void> {
-        return apiClient.delete<void>(`/tags/${id}`);
+        return apiClient.delete<void>(`/admin/tags/${id}`);
     },
 };
