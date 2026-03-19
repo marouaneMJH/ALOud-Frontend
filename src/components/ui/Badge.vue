@@ -11,10 +11,10 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const variants = {
-    default: "border-amber-300 bg-amber-100 text-amber-900",
-    secondary: "border-amber-200 bg-amber-50 text-amber-800",
-    destructive: "border-red-300 bg-red-100 text-red-900",
-    outline: "border-amber-300 text-amber-900",
+    default: "border-primary bg-primary text-primary-foreground hover:bg-primary/80",
+    secondary: "border-secondary bg-secondary text-secondary-foreground hover:bg-secondary/80",
+    destructive: "border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/80",
+    outline: "border-input text-foreground",
 };
 </script>
 
@@ -22,7 +22,7 @@ const variants = {
     <div
         :class="
             cn(
-                'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2',
+                'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
                 variants[props.variant],
                 props.class,
             )

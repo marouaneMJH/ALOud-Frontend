@@ -1,12 +1,12 @@
 <template>
-    <div class="flex h-screen bg-amber-50">
+    <div class="flex h-screen bg-background">
         <!-- Sidebar -->
         <aside
-            class="w-64 bg-amber-100 shadow-lg overflow-y-auto border-r border-amber-300"
+            class="w-64 bg-muted shadow-lg overflow-y-auto border-r border-border"
         >
-            <div class="p-6 border-b border-amber-300">
-                <h1 class="text-2xl font-bold text-amber-900">ALOud Admin</h1>
-                <p class="text-sm text-amber-700 mt-1">
+            <div class="p-6 border-b border-border">
+                <h1 class="text-2xl font-bold text-foreground">ALOud Admin</h1>
+                <p class="text-sm text-muted-foreground mt-1">
                     Perfume Management Dashboard
                 </p>
             </div>
@@ -17,8 +17,8 @@
                     class="block px-4 py-3 rounded-lg mb-2 transition duration-200"
                     :class="
                         isActive('/dashboard')
-                            ? 'bg-amber-300 text-amber-900 font-semibold border border-amber-400 shadow-sm'
-                            : 'text-amber-900 hover:text-amber-800 hover:bg-amber-200'
+                            ? 'bg-primary text-primary-foreground font-semibold border border-primary shadow-sm'
+                            : 'text-foreground hover:text-foreground hover:bg-secondary'
                     "
                 >
                     Dashboard
@@ -26,7 +26,7 @@
 
                 <div class="mt-6">
                     <h3
-                        class="px-4 py-2 text-xs font-semibold text-amber-800 uppercase tracking-wider"
+                        class="px-4 py-2 text-xs font-semibold text-slate-800 uppercase tracking-wider"
                     >
                         Catalog Management
                     </h3>
@@ -37,8 +37,8 @@
                         class="block px-4 py-2 rounded-lg mb-1 transition duration-200 text-sm"
                         :class="
                             isActive(item.path)
-                                ? 'bg-amber-200 text-amber-900 font-semibold border-l-2 border-amber-500'
-                                : 'text-amber-900 hover:text-amber-800 hover:bg-amber-200 hover:border-l-2 hover:border-amber-400'
+                                ? 'bg-secondary text-foreground font-semibold border-l-2 border-primary'
+                                : 'text-foreground hover:text-foreground hover:bg-secondary hover:border-l-2 hover:border-primary'
                         "
                     >
                         {{ item.label }}
@@ -47,7 +47,7 @@
 
                 <div class="mt-6">
                     <h3
-                        class="px-4 py-2 text-xs font-semibold text-amber-800 uppercase tracking-wider"
+                        class="px-4 py-2 text-xs font-semibold text-slate-800 uppercase tracking-wider"
                     >
                         System Config
                     </h3>
@@ -56,8 +56,8 @@
                         class="block px-4 py-2 rounded-lg mb-1 transition duration-200 text-sm"
                         :class="
                             isActive('/expert-system')
-                                ? 'bg-amber-200 text-amber-900 font-semibold border-l-2 border-amber-500'
-                                : 'text-amber-900 hover:text-amber-800 hover:bg-amber-200 hover:border-l-2 hover:border-amber-400'
+                                ? 'bg-secondary text-foreground font-semibold border-l-2 border-primary'
+                                : 'text-foreground hover:text-foreground hover:bg-secondary hover:border-l-2 hover:border-primary'
                         "
                     >
                         Expert System
@@ -67,8 +67,8 @@
                         class="block px-4 py-2 rounded-lg mb-1 transition duration-200 text-sm"
                         :class="
                             isActive('/llm-config')
-                                ? 'bg-amber-200 text-amber-900 font-semibold border-l-2 border-amber-500'
-                                : 'text-amber-900 hover:text-amber-800 hover:bg-amber-200 hover:border-l-2 hover:border-amber-400'
+                                ? 'bg-secondary text-foreground font-semibold border-l-2 border-primary'
+                                : 'text-foreground hover:text-foreground hover:bg-secondary hover:border-l-2 hover:border-primary'
                         "
                     >
                         LLM Configuration
@@ -81,20 +81,20 @@
         <div class="flex-1 flex flex-col overflow-hidden">
             <!-- Header -->
             <header
-                class="bg-white border-b border-amber-300 px-8 py-4 flex justify-between items-center shadow-sm"
+                class="bg-background border-b border-border px-8 py-4 flex justify-between items-center shadow-sm"
             >
-                <h2 class="text-2xl font-semibold text-amber-900">Dashboard</h2>
+                <h2 class="text-2xl font-semibold text-foreground">Dashboard</h2>
                 <div class="flex items-center gap-6">
                     <!-- User Profile Section -->
                     <div
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg bg-amber-100 border border-amber-300"
+                        class="flex items-center gap-3 px-3 py-2 rounded-lg bg-muted border border-border"
                     >
                         <div>
-                            <p class="text-sm font-medium text-amber-900">
+                            <p class="text-sm font-medium text-foreground">
                                 {{ authStore.user?.firstName }}
                                 {{ authStore.user?.lastName }}
                             </p>
-                            <p class="text-xs text-amber-700">
+                            <p class="text-xs text-muted-foreground">
                                 {{ authStore.user?.email }}
                             </p>
                         </div>
@@ -111,7 +111,7 @@
             </header>
 
             <!-- Page Content -->
-            <main class="flex-1 overflow-y-auto p-8 bg-amber-50">
+            <main class="flex-1 overflow-y-auto p-8 bg-background">
                 <Dashboard />
             </main>
         </div>

@@ -79,9 +79,9 @@ const filteredItems = computed(() => {
         <div v-if="isLoading" class="flex justify-center items-center py-20">
             <div class="flex flex-col items-center gap-4">
                 <div
-                    class="animate-spin rounded-full h-12 w-12 border-2 border-amber-500 border-t-transparent"
+                    class="animate-spin rounded-full h-12 w-12 border-2 border-primary border-t-transparent"
                 ></div>
-                <p class="text-amber-700">Loading {{ entityName }}s...</p>
+                <p class="text-muted-foreground">Loading {{ entityName }}s...</p>
             </div>
         </div>
 
@@ -97,7 +97,7 @@ const filteredItems = computed(() => {
         <!-- Table -->
         <div
             v-else
-            class="rounded-lg border border-amber-300 bg-white shadow-sm overflow-hidden"
+            class="rounded-lg border border-border bg-white shadow-sm overflow-hidden"
         >
             <Table v-if="items.length > 0">
                 <TableHeader>
@@ -112,7 +112,7 @@ const filteredItems = computed(() => {
                     <TableRow
                         v-for="item in filteredItems"
                         :key="item.id"
-                        class="transition-colors hover:bg-amber-50"
+                        class="transition-colors hover:bg-muted"
                     >
                         <TableCell v-for="col in columns" :key="col.key">
                             {{ item[col.key] }}
@@ -123,7 +123,7 @@ const filteredItems = computed(() => {
                                     @click="$emit('edit', item)"
                                     variant="ghost"
                                     size="sm"
-                                    class="text-amber-600 hover:text-amber-800"
+                                    class="text-primary hover:text-primary/80"
                                 >
                                     Edit
                                 </Button>
@@ -144,10 +144,10 @@ const filteredItems = computed(() => {
             <!-- Empty State -->
             <div
                 v-if="items.length === 0"
-                class="text-center py-16 text-amber-600"
+                class="text-center py-16 text-muted-foreground"
             >
                 <p class="mb-2">No {{ entityName }}s found</p>
-                <p class="text-xs text-amber-500">
+                <p class="text-xs text-muted-foreground">
                     Click "New {{ entityName }}" to create your first entry
                 </p>
             </div>
@@ -158,7 +158,7 @@ const filteredItems = computed(() => {
             v-if="items.length > 0"
             class="flex justify-between items-center mt-6"
         >
-            <p class="text-sm text-amber-700">
+            <p class="text-sm text-muted-foreground">
                 Showing {{ (currentPage - 1) * pageSize + 1 }} to
                 {{ Math.min(currentPage * pageSize, items.length) }} of
                 {{ items.length }}

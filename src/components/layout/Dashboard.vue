@@ -66,10 +66,10 @@
                     Array.isArray(stats.topBrands) &&
                     stats.topBrands.length > 0
                 "
-                class="rounded-lg border border-amber-300 bg-white p-6 shadow-sm"
+                class="rounded-lg border border-border bg-white p-6 shadow-sm"
             >
                 <h3
-                    class="text-lg font-semibold text-amber-900 mb-6 uppercase tracking-wider"
+                    class="text-lg font-semibold text-foreground mb-6 uppercase tracking-wider"
                 >
                     Top Brands
                 </h3>
@@ -77,21 +77,21 @@
                     <div
                         v-for="brand in stats.topBrands"
                         :key="brand.brandId"
-                        class="group p-4 bg-amber-50 rounded-lg border border-amber-200 hover:border-amber-400 transition-all duration-200"
+                        class="group p-4 bg-muted rounded-lg border border-border hover:border-primary transition-all duration-200"
                     >
                         <div class="flex items-center justify-between mb-2">
-                            <span class="font-medium text-amber-900">{{
+                            <span class="font-medium text-foreground">{{
                                 brand.brandName
                             }}</span>
-                            <span class="text-amber-700 font-semibold"
+                            <span class="text-muted-foreground font-semibold"
                                 >{{ brand.perfumeCount }} products</span
                             >
                         </div>
                         <div
-                            class="h-1.5 bg-amber-200 rounded-full overflow-hidden"
+                            class="h-1.5 bg-secondary rounded-full overflow-hidden"
                         >
                             <div
-                                class="h-full bg-gradient-to-red from-amber-400 to-amber-300 group-hover:shadow-md transition-all duration-300"
+                                class="h-full bg-gradient-to-r from-primary to-primary/80 group-hover:shadow-md transition-all duration-300"
                                 :style="{
                                     width: `${(brand.perfumeCount / (stats?.topBrands?.[0]?.perfumeCount || 1)) * 100}%`,
                                 }"
@@ -108,10 +108,10 @@
                     Array.isArray(stats.topFamilies) &&
                     stats.topFamilies.length > 0
                 "
-                class="rounded-lg border border-amber-300 bg-white p-6 shadow-sm"
+                class="rounded-lg border border-border bg-white p-6 shadow-sm"
             >
                 <h3
-                    class="text-lg font-semibold text-amber-900 mb-6 uppercase tracking-wider"
+                    class="text-lg font-semibold text-foreground mb-6 uppercase tracking-wider"
                 >
                     Top Families
                 </h3>
@@ -119,21 +119,21 @@
                     <div
                         v-for="family in stats.topFamilies"
                         :key="family.familyId"
-                        class="group p-4 bg-amber-50 rounded-lg border border-amber-200 hover:border-amber-400 transition-all duration-200"
+                        class="group p-4 bg-muted rounded-lg border border-border hover:border-primary transition-all duration-200"
                     >
                         <div class="flex items-center justify-between mb-2">
-                            <span class="font-medium text-amber-900">{{
+                            <span class="font-medium text-foreground">{{
                                 family.familyName
                             }}</span>
-                            <span class="text-amber-700 font-semibold"
+                            <span class="text-muted-foreground font-semibold"
                                 >{{ family.perfumeCount }} products</span
                             >
                         </div>
                         <div
-                            class="h-1.5 bg-amber-200 rounded-full overflow-hidden"
+                            class="h-1.5 bg-secondary rounded-full overflow-hidden"
                         >
                             <div
-                                class="h-full bg-gradient-to-red from-amber-400 to-amber-300 group-hover:shadow-md transition-all duration-300"
+                                class="h-full bg-gradient-to-r from-primary to-primary/80 group-hover:shadow-md transition-all duration-300"
                                 :style="{
                                     width: `${(family.perfumeCount / (stats?.topFamilies?.[0]?.perfumeCount || 1)) * 100}%`,
                                 }"
@@ -150,34 +150,34 @@
                     Array.isArray(stats.recentPerfumes) &&
                     stats.recentPerfumes.length > 0
                 "
-                class="rounded-lg border border-amber-300 bg-white p-6 shadow-sm overflow-hidden"
+                class="rounded-lg border border-border bg-white p-6 shadow-sm overflow-hidden"
             >
                 <h3
-                    class="text-lg font-semibold text-amber-900 mb-6 uppercase tracking-wider"
+                    class="text-lg font-semibold text-foreground mb-6 uppercase tracking-wider"
                 >
                     Recently Added Products
                 </h3>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm">
                         <thead>
-                            <tr class="border-b border-amber-300">
+                            <tr class="border-b border-border">
                                 <th
-                                    class="text-left py-3 px-4 font-semibold text-amber-900 text-xs uppercase tracking-wider"
+                                    class="text-left py-3 px-4 font-semibold text-foreground text-xs uppercase tracking-wider"
                                 >
                                     Product Name
                                 </th>
                                 <th
-                                    class="text-left py-3 px-4 font-semibold text-amber-900 text-xs uppercase tracking-wider"
+                                    class="text-left py-3 px-4 font-semibold text-foreground text-xs uppercase tracking-wider"
                                 >
                                     Brand
                                 </th>
                                 <th
-                                    class="text-left py-3 px-4 font-semibold text-amber-900 text-xs uppercase tracking-wider"
+                                    class="text-left py-3 px-4 font-semibold text-foreground text-xs uppercase tracking-wider"
                                 >
                                     Gender Profile
                                 </th>
                                 <th
-                                    class="text-left py-3 px-4 font-semibold text-amber-900 text-xs uppercase tracking-wider"
+                                    class="text-left py-3 px-4 font-semibold text-foreground text-xs uppercase tracking-wider"
                                 >
                                     Added Date
                                 </th>
@@ -190,20 +190,20 @@
                                     5,
                                 )"
                                 :key="perfume.perfumeId"
-                                class="border-b border-amber-200 hover:bg-amber-50 transition-colors duration-200"
+                                class="border-b border-border hover:bg-muted transition-colors duration-200"
                             >
                                 <td
-                                    class="py-4 px-4 text-amber-900 font-medium"
+                                    class="py-4 px-4 text-foreground font-medium"
                                 >
                                     {{ perfume.perfumeName }}
                                 </td>
-                                <td class="py-4 px-4 text-amber-700">
+                                <td class="py-4 px-4 text-muted-foreground">
                                     {{ perfume.brandName }}
                                 </td>
-                                <td class="py-4 px-4 text-amber-700">
+                                <td class="py-4 px-4 text-muted-foreground">
                                     {{ perfume.genderProfile || "N/A" }}
                                 </td>
-                                <td class="py-4 px-4 text-amber-700 text-xs">
+                                <td class="py-4 px-4 text-muted-foreground text-xs">
                                     {{
                                         new Date(
                                             perfume.createdAt,

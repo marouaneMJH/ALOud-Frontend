@@ -2,9 +2,9 @@
     <CrudLayout page-title="LLM Configuration">
         <div class="max-w-2xl mx-auto space-y-6">
             <div
-                class="rounded-lg border border-gold-700 bg-gradient-to-br from-gold-900 via-gold-950 to-gold-900 shadow-xl shadow-gold-500/20 p-8"
+                class="rounded-lg border border-border bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 shadow-xl shadow-primary/20 p-8"
             >
-                <h3 class="text-lg font-semibold text-gold-300 mb-6">
+                <h3 class="text-lg font-semibold text-muted-foreground mb-6">
                     Language Model Configuration
                 </h3>
 
@@ -12,12 +12,12 @@
                     <!-- LLM Provider Selection -->
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-muted-foreground mb-2"
                             >LLM Provider</label
                         >
                         <select
                             v-model="config.provider"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             required
                         >
                             <option value="openai">
@@ -35,13 +35,13 @@
                     <!-- Model Selection -->
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-muted-foreground mb-2"
                             >Model</label
                         >
                         <input
                             v-model="config.model"
                             type="text"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             placeholder="e.g., gpt-4, claude-3-opus-20240229"
                             required
                         />
@@ -50,25 +50,25 @@
                     <!-- API Key -->
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-muted-foreground mb-2"
                             >API Key</label
                         >
                         <div class="relative">
                             <input
                                 :type="showApiKey ? 'text' : 'password'"
                                 v-model="config.apiKey"
-                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 pr-10"
+                                class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary pr-10"
                                 placeholder="sk-..."
                             />
                             <button
                                 type="button"
                                 @click="showApiKey = !showApiKey"
-                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gold-400 hover:text-gold-300"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-muted"
                             >
                                 {{ showApiKey ? "Hide" : "Show" }}
                             </button>
                         </div>
-                        <p class="text-xs text-gold-500 mt-1">
+                        <p class="text-xs text-muted-foreground mt-1">
                             API key will be stored securely (hint: sk-...)
                         </p>
                     </div>
@@ -76,10 +76,10 @@
                     <!-- Temperature Slider -->
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-muted-foreground mb-2"
                         >
                             Temperature:
-                            <span class="text-gold-400 font-semibold">{{
+                            <span class="text-muted-foreground font-semibold">{{
                                 config.temperature
                             }}</span>
                         </label>
@@ -91,7 +91,7 @@
                             step="0.1"
                             class="w-full"
                         />
-                        <p class="text-xs text-gold-500 mt-1">
+                        <p class="text-xs text-muted-foreground mt-1">
                             Lower = more deterministic, Higher = more creative
                             (0-2)
                         </p>
@@ -100,7 +100,7 @@
                     <!-- Max Tokens -->
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-muted-foreground mb-2"
                             >Max Tokens</label
                         >
                         <input
@@ -108,10 +108,10 @@
                             type="number"
                             min="1"
                             max="4000"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             placeholder="2000"
                         />
-                        <p class="text-xs text-gold-500 mt-1">
+                        <p class="text-xs text-muted-foreground mt-1">
                             Maximum tokens for generated responses
                         </p>
                     </div>
@@ -119,10 +119,10 @@
                     <!-- Top P (Nucleus Sampling) -->
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-muted-foreground mb-2"
                         >
                             Top P (Nucleus Sampling):
-                            <span class="text-gold-400 font-semibold">{{
+                            <span class="text-muted-foreground font-semibold">{{
                                 config.topP
                             }}</span>
                         </label>
@@ -134,7 +134,7 @@
                             step="0.05"
                             class="w-full"
                         />
-                        <p class="text-xs text-gold-500 mt-1">
+                        <p class="text-xs text-muted-foreground mt-1">
                             Controls diversity of output (0-1)
                         </p>
                     </div>
@@ -142,12 +142,12 @@
                     <!-- System Prompt -->
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-muted-foreground mb-2"
                             >System Prompt</label
                         >
                         <textarea
                             v-model="config.systemPrompt"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             rows="4"
                             placeholder="Define the behavior and instructions for the LLM..."
                         ></textarea>
@@ -185,21 +185,21 @@
                             type="button"
                             @click="testConnection"
                             :disabled="isLoading"
-                            class="px-6 py-3 border border-gold-700 text-gold-400 font-medium rounded-lg hover:bg-gold-500 hover:bg-opacity-10 transition duration-300 disabled:opacity-50"
+                            class="px-6 py-3 border border-border text-muted-foreground font-medium rounded-lg hover:bg-primary hover:bg-opacity-10 transition duration-300 disabled:opacity-50"
                         >
                             {{ isLoading ? "Testing..." : "Test Connection" }}
                         </button>
                         <button
                             type="submit"
                             :disabled="isLoading"
-                            class="px-6 py-3 bg-gradient-to-red from-gold-500 to-gold-400 text-gold-900 font-medium rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
+                            class="px-6 py-3 bg-gradient-to-r from-primary to-primary/80 text-slate-900 font-medium rounded-lg hover:shadow-md transition duration-300 disabled:opacity-50"
                         >
                             {{ isLoading ? "Saving..." : "Save Configuration" }}
                         </button>
                         <button
                             type="button"
                             @click="resetConfig"
-                            class="px-6 py-3 border border-gold-700 text-gold-400 font-medium rounded-lg hover:bg-gold-500 hover:bg-opacity-10 transition duration-300"
+                            class="px-6 py-3 border border-border text-muted-foreground font-medium rounded-lg hover:bg-primary hover:bg-opacity-10 transition duration-300"
                         >
                             Reset
                         </button>

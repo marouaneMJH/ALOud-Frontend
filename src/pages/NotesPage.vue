@@ -12,7 +12,7 @@
                 >
                     <div>
                         <label
-                            class="block text-sm font-medium text-amber-900 mb-2"
+                            class="block text-sm font-medium text-foreground mb-2"
                             >Note Name</label
                         >
                         <input
@@ -20,48 +20,48 @@
                             type="text"
                             placeholder="e.g., Rose"
                             required
-                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
+                            class="w-full px-4 py-2 border border-border bg-white text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         />
                     </div>
                     <div>
                         <label
-                            class="block text-sm font-medium text-amber-900 mb-2"
+                            class="block text-sm font-medium text-foreground mb-2"
                             >Description</label
                         >
                         <textarea
                             v-model="formData.description"
                             placeholder="Note description..."
                             rows="2"
-                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
+                            class="w-full px-4 py-2 border border-border bg-white text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         />
                     </div>
                     <div>
                         <label
-                            class="block text-sm font-medium text-amber-900 mb-2"
+                            class="block text-sm font-medium text-foreground mb-2"
                             >Note Type</label
                         >
                         <input
                             v-model="formData.noteType"
                             placeholder="e.g., Floral"
                             type="text"
-                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
+                            class="w-full px-4 py-2 border border-border bg-white text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         />
                     </div>
                     <div>
                         <label
-                            class="block text-sm font-medium text-amber-900 mb-2"
+                            class="block text-sm font-medium text-foreground mb-2"
                             >Category</label
                         >
                         <input
                             v-model="formData.category"
                             placeholder="e.g., Top Note"
                             type="text"
-                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
+                            class="w-full px-4 py-2 border border-border bg-white text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         />
                     </div>
                     <div>
                         <label
-                            class="block text-sm font-medium text-amber-900 mb-2"
+                            class="block text-sm font-medium text-foreground mb-2"
                             >Intensity (0-10)</label
                         >
                         <input
@@ -69,14 +69,14 @@
                             type="number"
                             min="0"
                             max="10"
-                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
+                            class="w-full px-4 py-2 border border-border bg-white text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         />
                     </div>
                     <div class="flex gap-4 pt-4">
                         <button
                             type="submit"
                             :disabled="isSubmitting"
-                            class="flex-1 px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-400 text-amber-100 font-medium rounded-lg hover:shadow-md transition duration-300 disabled:opacity-50"
+                            class="flex-1 px-4 py-2 bg-gradient-to-r from-primary to-primary/90 text-muted font-medium rounded-lg hover:shadow-md transition duration-300 disabled:opacity-50"
                         >
                             {{
                                 isSubmitting
@@ -89,7 +89,7 @@
                         <button
                             type="button"
                             @click="closeModal"
-                            class="flex-1 px-4 py-2 border border-amber-300 text-amber-700 font-medium rounded-lg hover:bg-amber-100 transition duration-300"
+                            class="flex-1 px-4 py-2 border border-border text-muted-foreground font-medium rounded-lg hover:bg-muted transition duration-300"
                         >
                             Cancel
                         </button>
@@ -109,7 +109,7 @@
                 title="Confirm Deletion"
             >
                 <div class="space-y-4">
-                    <p class="text-amber-900">
+                    <p class="text-foreground">
                         Are you sure you want to delete this note?
                     </p>
                     <div class="flex gap-4 pt-4">
@@ -122,7 +122,7 @@
                         </button>
                         <button
                             @click="closeDeleteModal"
-                            class="flex-1 px-4 py-2 border border-amber-300 text-amber-700 font-medium rounded-lg hover:bg-amber-100 transition duration-300"
+                            class="flex-1 px-4 py-2 border border-border text-muted-foreground font-medium rounded-lg hover:bg-muted transition duration-300"
                         >
                             Cancel
                         </button>

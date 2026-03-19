@@ -27,12 +27,12 @@ const sizes = {
         <div
             :class="
                 cn(
-                    'animate-spin rounded-full border-amber-500 border-t-transparent',
+                    'animate-spin rounded-full border-primary border-t-transparent',
                     sizes[props.size],
                 )
             "
         />
-        <p v-if="$props.label" class="text-amber-700 text-sm font-medium">
+        <p v-if="$props.label" class="text-muted-foreground text-sm font-medium">
             {{ $props.label }}
         </p>
     </div>

@@ -9,7 +9,7 @@ withDefaults(defineProps<Props>(), {});
 </script>
 
 <template>
-    <p :class="cn('text-sm text-amber-700', $props.class)">
+    <p :class="cn('text-sm text-muted-foreground', $props.class)">
         <slot />
     </p>
 </template>

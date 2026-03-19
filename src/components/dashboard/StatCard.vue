@@ -32,22 +32,22 @@ const trendClass = computed(() => {
     <Card class="relative overflow-hidden p-6">
         <!-- Light gradient background -->
         <div
-            class="absolute inset-0 bg-gradient-to-br from-amber-50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"
+            class="absolute inset-0 bg-gradient-to-br from-muted to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"
         />
 
         <!-- Content -->
         <div class="relative z-10">
             <div class="flex items-center justify-between mb-4">
                 <h3
-                    class="text-sm font-semibold text-amber-900 uppercase tracking-wider"
+                    class="text-sm font-semibold text-foreground uppercase tracking-wider"
                 >
                     {{ title }}
                 </h3>
                 <div
-                    class="p-2 bg-amber-100 rounded-lg border border-amber-300 transition-transform duration-300 group-hover:scale-110"
+                    class="p-2 bg-muted rounded-lg border border-border transition-transform duration-300 group-hover:scale-110"
                 >
                     <svg
-                        class="w-5 h-5 text-amber-700"
+                        class="w-5 h-5 text-muted-foreground"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                     >
@@ -60,7 +60,7 @@ const trendClass = computed(() => {
 
             <div class="mb-2">
                 <p
-                    class="text-3xl font-bold text-amber-900 transition-transform duration-300"
+                    class="text-3xl font-bold text-foreground transition-transform duration-300"
                 >
                     {{ formatValue(value) }}
                 </p>
@@ -74,13 +74,13 @@ const trendClass = computed(() => {
                 >
                     {{ trend > 0 ? "+" : "" }}{{ trend }}%
                 </span>
-                <span class="text-xs text-amber-600">vs last month</span>
+                <span class="text-xs text-muted-foreground">vs last month</span>
             </div>
         </div>
 
         <!-- Bottom accent line -->
         <div
-            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-red from-amber-400 to-transparent"
+            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-transparent"
         />
     </Card>
 </template>

@@ -20,7 +20,7 @@ const emit = defineEmits<{
         >
             <!-- Backdrop -->
             <div
-                class="absolute inset-0 bg-gray-900 bg-opacity-50 transition-opacity"
+                class="absolute inset-0 bg-background/80 backdrop-blur-sm transition-opacity"
                 @click="emit('update:open', false)"
             />
 
@@ -28,7 +28,7 @@ const emit = defineEmits<{
             <div
                 :class="
                     cn(
-                        'relative z-50 w-full max-w-lg rounded-lg border border-amber-300 bg-white p-6 shadow-lg animate-in fade-in zoom-in-95 duration-200',
+                        'relative z-50 w-full max-w-lg rounded-lg border border-border bg-card p-6 shadow-lg animate-in fade-in zoom-in-95 duration-200',
                         props.class,
                     )
                 "
@@ -38,7 +38,7 @@ const emit = defineEmits<{
 
                 <button
                     @click="emit('update:open', false)"
-                    class="absolute right-4 top-4 rounded-md text-amber-500 opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    class="absolute right-4 top-4 rounded-md text-muted-foreground opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                     <svg
                         class="h-4 w-4"

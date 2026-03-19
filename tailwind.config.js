@@ -4,36 +4,58 @@ export default {
     theme: {
         extend: {
             colors: {
-                gold: {
-                    50: "#fffbf0",
-                    100: "#fef3c7",
-                    200: "#fde68a",
-                    300: "#fcd34d",
-                    400: "#fbbf24",
-                    500: "#f59e0b",
-                    600: "#d97706",
-                    700: "#b45309",
-                    800: "#92400e",
-                    900: "#78350f",
-                    950: "#451a03",
+                border: "hsl(var(--border))",
+                input: "hsl(var(--input))",
+                ring: "hsl(var(--ring))",
+                background: "hsl(var(--background))",
+                foreground: "hsl(var(--foreground))",
+                primary: {
+                    DEFAULT: "hsl(var(--primary))",
+                    foreground: "hsl(var(--primary-foreground))",
                 },
-                primary: "#f59e0b",
-                secondary: "#d97706",
-                accent: "#fbbf24",
-                success: "#10b981",
-                warning: "#f59e0b",
-                error: "#ef4444",
+                secondary: {
+                    DEFAULT: "hsl(var(--secondary))",
+                    foreground: "hsl(var(--secondary-foreground))",
+                },
+                destructive: {
+                    DEFAULT: "hsl(var(--destructive))",
+                    foreground: "hsl(var(--destructive-foreground))",
+                },
+                muted: {
+                    DEFAULT: "hsl(var(--muted))",
+                    foreground: "hsl(var(--muted-foreground))",
+                },
+                accent: {
+                    DEFAULT: "hsl(var(--accent))",
+                    foreground: "hsl(var(--accent-foreground))",
+                },
+                popover: {
+                    DEFAULT: "hsl(var(--popover))",
+                    foreground: "hsl(var(--popover-foreground))",
+                },
+                card: {
+                    DEFAULT: "hsl(var(--card))",
+                    foreground: "hsl(var(--card-foreground))",
+                },
             },
-            boxShadow: {
-                "golden-glow": "0 0 15px rgba(245, 158, 11, 0.4)",
-                "golden-glow-lg": "0 0 30px rgba(245, 158, 11, 0.5)",
-                "golden-glow-xl": "0 0 50px rgba(245, 158, 11, 0.6)",
+            borderRadius: {
+                lg: "var(--radius)",
+                md: "calc(var(--radius) - 2px)",
+                sm: "calc(var(--radius) - 4px)",
             },
-            backgroundImage: {
-                "golden-gradient":
-                    "linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.05) 100%)",
-                "golden-gradient-dark":
-                    "linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.08) 100%)",
+            keyframes: {
+                "accordion-down": {
+                    from: { height: 0 },
+                    to: { height: "var(--radix-accordion-content-height)" },
+                },
+                "accordion-up": {
+                    from: { height: "var(--radix-accordion-content-height)" },
+                    to: { height: 0 },
+                },
+            },
+            animation: {
+                "accordion-down": "accordion-down 0.2s ease-out",
+                "accordion-up": "accordion-up 0.2s ease-out",
             },
         },
     },

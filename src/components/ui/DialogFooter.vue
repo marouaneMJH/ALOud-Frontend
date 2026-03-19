@@ -12,7 +12,7 @@ withDefaults(defineProps<Props>(), {});
     <div
         :class="
             cn(
-                'flex justify-end gap-2 pt-4 border-t border-amber-200',
+                'flex justify-end gap-2 pt-4 border-t border-border',
                 $props.class,
             )
         "

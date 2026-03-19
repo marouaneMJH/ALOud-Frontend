@@ -12,7 +12,7 @@ withDefaults(defineProps<Props>(), {});
     <tr
         :class="
             cn(
-                'border-b border-amber-200 transition-colors hover:bg-amber-50 data-[state=selected]:bg-amber-100',
+                'border-b border-border transition-colors hover:bg-muted data-[state=selected]:bg-muted',
                 $props.class,
             )
         "

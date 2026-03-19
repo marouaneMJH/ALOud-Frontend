@@ -12,7 +12,7 @@ withDefaults(defineProps<Props>(), {});
 <template>
     <label
         :for="$props.for"
-        :class="cn('text-sm font-medium text-amber-900', $props.class)"
+        :class="cn('text-sm font-medium text-foreground', $props.class)"
     >
         <slot />
     </label>

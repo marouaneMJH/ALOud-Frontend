@@ -1,34 +1,34 @@
 <template>
     <div
-        class="flex items-center justify-center min-h-screen bg-gradient-to-br from-gold-950 via-gold-900 to-gold-950"
+        class="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
     >
         <!-- Login Card -->
         <div class="w-full max-w-md">
             <!-- Logo/Title -->
             <div class="text-center mb-8">
                 <h1
-                    class="text-4xl font-bold bg-gradient-to-red from-gold-400 to-gold-300 bg-clip-text text-transparent mb-2"
+                    class="text-4xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent mb-2"
                 >
                     ALOud Admin
                 </h1>
-                <p class="text-gold-400 text-sm">
+                <p class="text-primary text-sm">
                     Perfume Management Dashboard
                 </p>
             </div>
 
             <!-- Card Container -->
             <div
-                class="rounded-lg border border-gold-700 bg-gradient-to-br from-gold-900 via-gold-950 to-gold-900 p-8 shadow-lg"
+                class="rounded-lg border border-border bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 p-8 shadow-lg"
             >
                 <!-- Form Title -->
-                <h2 class="text-2xl font-semibold text-gold-300 mb-6">Login</h2>
+                <h2 class="text-2xl font-semibold text-muted-foreground mb-6">Login</h2>
 
                 <!-- Login Form -->
                 <form @submit.prevent="handleLogin" class="space-y-4">
                     <!-- Email Field -->
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-muted-foreground mb-2"
                             >Email Address</label
                         >
                         <input
@@ -37,14 +37,14 @@
                             placeholder="admin@test.com"
                             required
                             :disabled="isSubmitting"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent disabled:opacity-50"
+                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
                         />
                     </div>
 
                     <!-- Password Field -->
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-muted-foreground mb-2"
                             >Password</label
                         >
                         <input
@@ -53,7 +53,7 @@
                             placeholder="••••••••"
                             required
                             :disabled="isSubmitting"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent disabled:opacity-50"
+                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
                         />
                     </div>
 
@@ -77,7 +77,7 @@
                     <button
                         type="submit"
                         :disabled="isSubmitting"
-                        class="w-full px-4 py-2 bg-gradient-to-red from-gold-500 to-gold-400 text-gold-900 font-semibold rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
+                        class="w-full px-4 py-2 bg-gradient-to-r from-primary to-primary/80 text-slate-900 font-semibold rounded-lg hover:shadow-md transition duration-300 disabled:opacity-50"
                     >
                         {{ isSubmitting ? "Logging in..." : "Login" }}
                     </button>
@@ -85,19 +85,19 @@
 
                 <!-- Divider -->
                 <div class="my-6 flex items-center gap-4">
-                    <div class="flex-1 border-t border-gold-700" />
-                    <span class="text-gold-600 text-sm">or</span>
-                    <div class="flex-1 border-t border-gold-700" />
+                    <div class="flex-1 border-t border-border" />
+                    <span class="text-muted-foreground text-sm">or</span>
+                    <div class="flex-1 border-t border-border" />
                 </div>
 
                 <!-- Register Link -->
                 <div class="text-center">
-                    <p class="text-gold-400 text-sm mb-2">
+                    <p class="text-muted-foreground text-sm mb-2">
                         Don't have an account?
                     </p>
                     <router-link
                         to="/register"
-                        class="inline-block px-4 py-2 border border-gold-700 text-gold-400 font-medium rounded-lg hover:bg-gold-500 hover:bg-opacity-10 transition duration-300"
+                        class="inline-block px-4 py-2 border border-border text-muted-foreground font-medium rounded-lg hover:bg-primary hover:bg-opacity-10 transition duration-300"
                     >
                         Create Account
                     </router-link>
@@ -106,7 +106,7 @@
 
             <!-- Bottom Accent -->
             <div
-                class="mt-6 h-1 w-full bg-gradient-to-red from-transparent via-gold-500 to-transparent rounded-full"
+                class="mt-6 h-1 w-full bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"
             />
         </div>
     </div>

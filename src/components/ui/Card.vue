@@ -12,7 +12,7 @@ withDefaults(defineProps<Props>(), {});
     <div
         :class="
             cn(
-                'rounded-lg border border-amber-300 bg-white shadow-sm transition-all duration-200 hover:shadow-md',
+                'rounded-lg border border-border bg-card shadow-sm transition-all duration-200 hover:shadow-md',
                 $props.class,
             )
         "

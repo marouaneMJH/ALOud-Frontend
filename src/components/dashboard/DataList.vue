@@ -1,21 +1,21 @@
 <template>
     <div
-        class="rounded-lg border border-gold-700 bg-gradient-to-br from-gold-900 via-gold-950 to-gold-900 p-6 shadow-lg overflow-hidden"
+        class="rounded-lg border border-border bg-gradient-to-br from-card via-card to-card p-6 shadow-lg overflow-hidden"
     >
-        <h2 class="text-lg font-semibold text-gold-300 mb-6">{{ title }}</h2>
+        <h2 class="text-lg font-semibold text-foreground mb-6">{{ title }}</h2>
 
         <div v-if="loading" class="flex items-center justify-center h-80">
-            <div class="text-gold-400">Loading data...</div>
+            <div class="text-muted-foreground">Loading data...</div>
         </div>
 
         <div v-else class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
-                    <tr class="border-b border-gold-700">
+                    <tr class="border-b border-border">
                         <th
                             v-for="col in columns"
                             :key="col"
-                            class="text-left py-3 px-4 font-semibold text-gold-400 text-xs uppercase tracking-wider"
+                            class="text-left py-3 px-4 font-semibold text-foreground text-xs uppercase tracking-wider"
                         >
                             {{ col }}
                         </th>
@@ -25,14 +25,14 @@
                     <tr
                         v-for="(row, idx) in items"
                         :key="idx"
-                        class="border-b border-gold-800 hover:bg-gold-500 hover:bg-opacity-5 transition-colors duration-200"
+                        class="border-b border-border hover:bg-muted/50 transition-colors duration-200"
                     >
                         <td
                             v-for="(col, colIdx) in columns"
                             :key="colIdx"
-                            class="py-4 px-4 text-gold-300"
+                            class="py-4 px-4 text-foreground"
                             :class="{
-                                'text-gold-300 font-medium': colIdx === 0,
+                                'text-foreground font-medium': colIdx === 0,
                             }"
                         >
                             {{

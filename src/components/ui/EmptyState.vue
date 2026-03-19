@@ -26,7 +26,7 @@ withDefaults(defineProps<Props>(), {
         <div v-if="$props.icon" class="mb-4 text-5xl">{{ $props.icon }}</div>
         <svg
             v-else
-            class="mb-4 h-12 w-12 text-amber-300"
+            class="mb-4 h-12 w-12 text-primary"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -38,9 +38,9 @@ withDefaults(defineProps<Props>(), {
                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
             />
         </svg>
-        <h3 class="text-lg font-semibold text-amber-900 mb-2">
+        <h3 class="text-lg font-semibold text-foreground mb-2">
             {{ $props.title }}
         </h3>
-        <p class="text-sm text-amber-700">{{ $props.description }}</p>
+        <p class="text-sm text-muted-foreground">{{ $props.description }}</p>
     </div>
 </template>

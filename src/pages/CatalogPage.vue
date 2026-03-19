@@ -1,10 +1,10 @@
 <template>
-    <div class="flex h-screen bg-gold-100">
+    <div class="flex h-screen bg-muted">
         <!-- Sidebar -->
         <aside class="w-64 bg-white shadow-lg overflow-y-auto">
-            <div class="p-6 border-b border-gold-200">
+            <div class="p-6 border-b border-border">
                 <h1 class="text-2xl font-bold text-blue-600">ALOud Admin</h1>
-                <p class="text-sm text-gold-500 mt-1">Perfume Management</p>
+                <p class="text-sm text-muted-foreground mt-1">Perfume Management</p>
             </div>
 
             <nav class="p-4">
@@ -14,7 +14,7 @@
                     :class="
                         isActive('/dashboard')
                             ? 'bg-blue-50 text-blue-600 font-semibold'
-                            : 'text-gold-700 hover:bg-gold-50'
+                            : 'text-muted-foreground hover:bg-muted'
                     "
                 >
                     📊 Dashboard
@@ -22,7 +22,7 @@
 
                 <div class="mt-6">
                     <h3
-                        class="px-4 py-2 text-xs font-semibold text-gold-500 uppercase"
+                        class="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase"
                     >
                         Catalog
                     </h3>
@@ -34,7 +34,7 @@
                         :class="
                             isActive(item.path)
                                 ? 'bg-blue-50 text-blue-600 font-semibold'
-                                : 'text-gold-700 hover:bg-gold-50'
+                                : 'text-muted-foreground hover:bg-muted'
                         "
                     >
                         {{ item.icon }} {{ item.label }}
@@ -43,7 +43,7 @@
 
                 <div class="mt-6">
                     <h3
-                        class="px-4 py-2 text-xs font-semibold text-gold-500 uppercase"
+                        class="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase"
                     >
                         Settings
                     </h3>
@@ -53,7 +53,7 @@
                         :class="
                             isActive('/expert-system')
                                 ? 'bg-blue-50 text-blue-600 font-semibold'
-                                : 'text-gold-700 hover:bg-gold-50'
+                                : 'text-muted-foreground hover:bg-muted'
                         "
                     >
                         🤖 Expert System
@@ -64,7 +64,7 @@
                         :class="
                             isActive('/llm-config')
                                 ? 'bg-blue-50 text-blue-600 font-semibold'
-                                : 'text-gold-700 hover:bg-gold-50'
+                                : 'text-muted-foreground hover:bg-muted'
                         "
                     >
                         ⚙️ LLM Config
@@ -77,16 +77,16 @@
         <div class="flex-1 flex flex-col overflow-hidden">
             <!-- Header -->
             <header
-                class="bg-white border-b border-gold-200 px-8 py-4 flex justify-between items-center"
+                class="bg-white border-b border-border px-8 py-4 flex justify-between items-center"
             >
-                <h2 class="text-xl font-semibold text-gold-800">
+                <h2 class="text-xl font-semibold text-foreground">
                     {{ pageTitle }}
                 </h2>
                 <div class="flex items-center gap-4">
-                    <button class="text-gold-600 hover:text-gold-900">
+                    <button class="text-muted-foreground hover:text-foreground">
                         🔔
                     </button>
-                    <button class="text-gold-600 hover:text-gold-900">
+                    <button class="text-muted-foreground hover:text-foreground">
                         👤
                     </button>
                 </div>
@@ -95,7 +95,7 @@
             <!-- Page Content -->
             <main class="flex-1 overflow-y-auto p-8">
                 <div class="bg-white rounded-lg shadow p-6 text-center">
-                    <p class="text-gold-600">
+                    <p class="text-muted-foreground">
                         {{ pageTitle }} page - Coming soon!
                     </p>
                 </div>

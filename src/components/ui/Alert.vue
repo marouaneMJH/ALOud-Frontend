@@ -11,10 +11,10 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const variants = {
-    default: "border-blue-300 bg-blue-50 text-blue-900",
-    destructive: "border-red-300 bg-red-50 text-red-900",
-    success: "border-green-300 bg-green-50 text-green-900",
-    warning: "border-amber-300 bg-amber-50 text-amber-900",
+    default: "border-secondary bg-secondary/10 text-secondary",
+    destructive: "border-destructive bg-destructive/10 text-destructive",
+    success: "border-green-500 bg-green-50 text-green-900",
+    warning: "border-yellow-500 bg-yellow-50 text-yellow-900",
 };
 </script>
 

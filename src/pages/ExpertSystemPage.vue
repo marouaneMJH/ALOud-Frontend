@@ -2,9 +2,9 @@
     <CrudLayout page-title="Expert System">
         <div class="max-w-2xl mx-auto space-y-6">
             <div
-                class="rounded-lg border border-gold-700 bg-gradient-to-br from-gold-900 via-gold-950 to-gold-900 shadow-xl shadow-gold-500/20 p-8"
+                class="rounded-lg border border-border bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 shadow-xl shadow-primary/20 p-8"
             >
-                <h3 class="text-lg font-semibold text-gold-300 mb-6">
+                <h3 class="text-lg font-semibold text-muted-foreground mb-6">
                     Perfume Recommendation Engine
                 </h3>
 
@@ -12,12 +12,12 @@
                     <!-- Query Input -->
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-muted-foreground mb-2"
                             >Perfume Query</label
                         >
                         <textarea
                             v-model="queryForm.query"
-                            class="w-full px-4 py-3 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-3 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             rows="4"
                             placeholder="e.g., I'm looking for a fresh, citrusy fragrance suitable for summer..."
                             required
@@ -28,12 +28,12 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label
-                                class="block text-sm font-medium text-gold-300 mb-2"
+                                class="block text-sm font-medium text-muted-foreground mb-2"
                                 >Gender Profile</label
                             >
                             <select
                                 v-model="queryForm.genderProfile"
-                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                                class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             >
                                 <option value="">Any</option>
                                 <option value="Men">Men</option>
@@ -44,12 +44,12 @@
 
                         <div>
                             <label
-                                class="block text-sm font-medium text-gold-300 mb-2"
+                                class="block text-sm font-medium text-muted-foreground mb-2"
                                 >Price Range</label
                             >
                             <select
                                 v-model="queryForm.priceRange"
-                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                                class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             >
                                 <option value="">Any</option>
                                 <option value="$">Budget ($)</option>
@@ -62,12 +62,12 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label
-                                class="block text-sm font-medium text-gold-300 mb-2"
+                                class="block text-sm font-medium text-muted-foreground mb-2"
                                 >Intensity</label
                             >
                             <select
                                 v-model="queryForm.intensity"
-                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                                class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             >
                                 <option value="">Any</option>
                                 <option value="Light">Light</option>
@@ -78,12 +78,12 @@
 
                         <div>
                             <label
-                                class="block text-sm font-medium text-gold-300 mb-2"
+                                class="block text-sm font-medium text-muted-foreground mb-2"
                                 >Longevity</label
                             >
                             <select
                                 v-model="queryForm.longevity"
-                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                                class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                             >
                                 <option value="">Any</option>
                                 <option value="Short">Short (1-3 hours)</option>
@@ -100,7 +100,7 @@
                         <button
                             type="submit"
                             :disabled="isLoading"
-                            class="px-6 py-3 bg-gradient-to-red from-gold-500 to-gold-400 text-gold-900 font-medium rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
+                            class="px-6 py-3 bg-gradient-to-r from-primary to-primary/80 text-slate-900 font-medium rounded-lg hover:shadow-md transition duration-300 disabled:opacity-50"
                         >
                             {{
                                 isLoading
@@ -111,7 +111,7 @@
                         <button
                             type="button"
                             @click="resetForm"
-                            class="px-6 py-3 border border-gold-700 text-gold-400 font-medium rounded-lg hover:bg-gold-500 hover:bg-opacity-10 transition duration-300"
+                            class="px-6 py-3 border border-border text-muted-foreground font-medium rounded-lg hover:bg-primary hover:bg-opacity-10 transition duration-300"
                         >
                             Clear
                         </button>
@@ -129,51 +129,51 @@
 
                 <!-- Results Section -->
                 <div v-if="results.length > 0" class="mt-12">
-                    <h4 class="text-lg font-semibold text-gold-300 mb-6">
+                    <h4 class="text-lg font-semibold text-muted-foreground mb-6">
                         Recommended Perfumes
                     </h4>
                     <div class="space-y-4">
                         <div
                             v-for="(result, index) in results"
                             :key="index"
-                            class="p-4 border border-gold-700 rounded-lg bg-gold-900 hover:shadow-golden-glow transition"
+                            class="p-4 border border-border rounded-lg bg-slate-700 hover:shadow-md transition"
                         >
                             <div class="flex justify-between items-start mb-2">
-                                <h5 class="text-lg font-semibold text-gold-300">
+                                <h5 class="text-lg font-semibold text-muted-foreground">
                                     {{ result.name }}
                                 </h5>
                                 <span
-                                    class="px-3 py-1 bg-gold-500 text-gold-900 text-sm font-medium rounded-full"
+                                    class="px-3 py-1 bg-primary text-slate-900 text-sm font-medium rounded-full"
                                 >
                                     {{ Math.round(result.score * 100) }}% Match
                                 </span>
                             </div>
-                            <p class="text-gold-400 mb-3">
+                            <p class="text-muted-foreground mb-3">
                                 {{ result.description }}
                             </p>
                             <div
-                                class="grid grid-cols-2 gap-2 text-sm text-gold-400"
+                                class="grid grid-cols-2 gap-2 text-sm text-muted-foreground"
                             >
                                 <div>
-                                    <strong class="text-gold-300"
+                                    <strong class="text-muted-foreground"
                                         >Brand:</strong
                                     >
                                     {{ result.brandName }}
                                 </div>
                                 <div>
-                                    <strong class="text-gold-300"
+                                    <strong class="text-muted-foreground"
                                         >Price:</strong
                                     >
                                     ${{ result.price }}
                                 </div>
                                 <div>
-                                    <strong class="text-gold-300"
+                                    <strong class="text-muted-foreground"
                                         >Intensity:</strong
                                     >
                                     {{ result.intensity }}
                                 </div>
                                 <div>
-                                    <strong class="text-gold-300"
+                                    <strong class="text-muted-foreground"
                                         >Longevity:</strong
                                     >
                                     {{ result.longevity }}
@@ -191,9 +191,9 @@
                         !isLoading &&
                         !error
                     "
-                    class="mt-8 p-6 bg-gold-950 border border-gold-700 rounded-lg"
+                    class="mt-8 p-6 bg-slate-900 border border-border rounded-lg"
                 >
-                    <p class="text-gold-400">
+                    <p class="text-muted-foreground">
                         No perfumes matched your criteria. Try adjusting your
                         preferences.
                     </p>

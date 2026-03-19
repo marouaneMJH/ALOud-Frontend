@@ -10,7 +10,7 @@ withDefaults(defineProps<Props>(), {});
 </script>
 
 <template>
-    <div :class="cn('mb-4 pb-4 border-b border-amber-200', $props.class)">
+    <div :class="cn('mb-4 pb-4 border-b border-border', $props.class)">
         <slot />
     </div>
 </template>
