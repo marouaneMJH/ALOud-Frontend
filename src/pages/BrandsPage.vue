@@ -10,7 +10,7 @@
                 <form @submit.prevent="submitBrand" class="space-y-4">
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-amber-900 mb-2"
                             >Brand Name</label
                         >
                         <input
@@ -18,7 +18,7 @@
                             type="text"
                             placeholder="e.g., Chanel"
                             required
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent"
+                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent"
                         />
                     </div>
 
@@ -26,7 +26,7 @@
                         <button
                             type="submit"
                             :disabled="isSubmitting"
-                            class="flex-1 px-4 py-2 bg-gradient-to-r from-gold-500 to-gold-400 text-gray-900 font-medium rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
+                            class="flex-1 px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-400 text-amber-100 font-medium rounded-lg hover:shadow-md transition duration-300 disabled:opacity-50"
                         >
                             {{
                                 isSubmitting
@@ -39,7 +39,7 @@
                         <button
                             type="button"
                             @click="closeModal"
-                            class="flex-1 px-4 py-2 border border-gold-700 text-gold-400 font-medium rounded-lg hover:bg-gold-500 hover:bg-opacity-10 transition duration-300"
+                            class="flex-1 px-4 py-2 border border-amber-300 text-amber-700 font-medium rounded-lg hover:bg-amber-100 transition duration-300"
                         >
                             Cancel
                         </button>
@@ -61,7 +61,7 @@
                 title="Delete Brand"
             >
                 <div class="space-y-4">
-                    <p class="text-gray-300">
+                    <p class="text-amber-900">
                         Are you sure you want to delete this brand? This action
                         cannot be undone.
                     </p>
@@ -75,7 +75,7 @@
                         </button>
                         <button
                             @click="closeDeleteModal"
-                            class="flex-1 px-4 py-2 border border-gold-700 text-gold-400 font-medium rounded-lg hover:bg-gold-500 hover:bg-opacity-10 transition duration-300"
+                            class="flex-1 px-4 py-2 border border-amber-300 text-amber-700 font-medium rounded-lg hover:bg-amber-100 transition duration-300"
                         >
                             Cancel
                         </button>

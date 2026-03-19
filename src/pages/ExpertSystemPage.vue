@@ -2,7 +2,7 @@
     <CrudLayout page-title="Expert System">
         <div class="max-w-2xl mx-auto space-y-6">
             <div
-                class="rounded-lg border border-gold-700 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 shadow-xl shadow-gold-500/20 p-8"
+                class="rounded-lg border border-gold-700 bg-gradient-to-br from-gold-900 via-gold-950 to-gold-900 shadow-xl shadow-gold-500/20 p-8"
             >
                 <h3 class="text-lg font-semibold text-gold-300 mb-6">
                     Perfume Recommendation Engine
@@ -17,7 +17,7 @@
                         >
                         <textarea
                             v-model="queryForm.query"
-                            class="w-full px-4 py-3 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-3 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
                             rows="4"
                             placeholder="e.g., I'm looking for a fresh, citrusy fragrance suitable for summer..."
                             required
@@ -33,7 +33,7 @@
                             >
                             <select
                                 v-model="queryForm.genderProfile"
-                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
                             >
                                 <option value="">Any</option>
                                 <option value="Men">Men</option>
@@ -49,7 +49,7 @@
                             >
                             <select
                                 v-model="queryForm.priceRange"
-                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
                             >
                                 <option value="">Any</option>
                                 <option value="$">Budget ($)</option>
@@ -67,7 +67,7 @@
                             >
                             <select
                                 v-model="queryForm.intensity"
-                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
                             >
                                 <option value="">Any</option>
                                 <option value="Light">Light</option>
@@ -83,7 +83,7 @@
                             >
                             <select
                                 v-model="queryForm.longevity"
-                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
                             >
                                 <option value="">Any</option>
                                 <option value="Short">Short (1-3 hours)</option>
@@ -100,7 +100,7 @@
                         <button
                             type="submit"
                             :disabled="isLoading"
-                            class="px-6 py-3 bg-gradient-to-r from-gold-500 to-gold-400 text-gray-900 font-medium rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
+                            class="px-6 py-3 bg-gradient-to-red from-gold-500 to-gold-400 text-gold-900 font-medium rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
                         >
                             {{
                                 isLoading
@@ -143,16 +143,16 @@
                                     {{ result.name }}
                                 </h5>
                                 <span
-                                    class="px-3 py-1 bg-gold-500 text-gray-900 text-sm font-medium rounded-full"
+                                    class="px-3 py-1 bg-gold-500 text-gold-900 text-sm font-medium rounded-full"
                                 >
                                     {{ Math.round(result.score * 100) }}% Match
                                 </span>
                             </div>
-                            <p class="text-gray-400 mb-3">
+                            <p class="text-gold-400 mb-3">
                                 {{ result.description }}
                             </p>
                             <div
-                                class="grid grid-cols-2 gap-2 text-sm text-gray-400"
+                                class="grid grid-cols-2 gap-2 text-sm text-gold-400"
                             >
                                 <div>
                                     <strong class="text-gold-300"

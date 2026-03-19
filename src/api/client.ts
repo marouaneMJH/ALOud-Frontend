@@ -97,7 +97,18 @@ class ApiClient {
     async get<T>(url: string): Promise<T> {
         try {
             const response = await this.client.get<T>(url);
-            console.log(response.data);
+            console.log("[API GET Response]", response.data);
+
+            // Handle wrapped response format { success: boolean, data: T }
+            if (
+                response.data &&
+                typeof response.data === "object" &&
+                "data" in response.data &&
+                "success" in response.data
+            ) {
+                return (response.data as any).data;
+            }
+
             return response.data;
         } catch (error) {
             console.error("API GET request failed:", error);

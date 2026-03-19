@@ -12,7 +12,7 @@
                 >
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-amber-900 mb-2"
                             >Perfume Name</label
                         >
                         <input
@@ -20,12 +20,12 @@
                             type="text"
                             placeholder="e.g., No. 5"
                             required
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
                         />
                     </div>
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-amber-900 mb-2"
                             >Brand ID</label
                         >
                         <input
@@ -33,12 +33,12 @@
                             type="text"
                             placeholder="Brand ID"
                             required
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
                         />
                     </div>
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-amber-900 mb-2"
                             >Price</label
                         >
                         <input
@@ -47,12 +47,12 @@
                             min="0"
                             step="0.01"
                             required
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
                         />
                     </div>
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-amber-900 mb-2"
                             >Stock Quantity</label
                         >
                         <input
@@ -60,50 +60,50 @@
                             type="number"
                             min="0"
                             required
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
                         />
                     </div>
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-amber-900 mb-2"
                             >Description</label
                         >
                         <textarea
                             v-model="formData.description"
                             rows="2"
                             placeholder="Description..."
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
                         />
                     </div>
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-amber-900 mb-2"
                             >Intensity</label
                         >
                         <input
                             v-model="formData.intensity"
                             placeholder="e.g., Light, Medium, Strong"
                             type="text"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
                         />
                     </div>
                     <div>
                         <label
-                            class="block text-sm font-medium text-gold-300 mb-2"
+                            class="block text-sm font-medium text-amber-900 mb-2"
                             >Gender Profile</label
                         >
                         <input
                             v-model="formData.genderProfile"
                             placeholder="e.g., Men, Women, Unisex"
                             type="text"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-amber-300 bg-white text-amber-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
                         />
                     </div>
                     <div class="flex gap-4 pt-4">
                         <button
                             type="submit"
                             :disabled="isSubmitting"
-                            class="flex-1 px-4 py-2 bg-gradient-to-r from-gold-500 to-gold-400 text-gray-900 font-medium rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
+                            class="flex-1 px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-400 text-amber-100 font-medium rounded-lg hover:shadow-md transition duration-300 disabled:opacity-50"
                         >
                             {{
                                 isSubmitting
@@ -116,7 +116,7 @@
                         <button
                             type="button"
                             @click="closeModal"
-                            class="flex-1 px-4 py-2 border border-gold-700 text-gold-400 font-medium rounded-lg hover:bg-gold-500 hover:bg-opacity-10 transition duration-300"
+                            class="flex-1 px-4 py-2 border border-amber-300 text-amber-700 font-medium rounded-lg hover:bg-amber-100 transition duration-300"
                         >
                             Cancel
                         </button>
@@ -136,7 +136,7 @@
                 title="Confirm Deletion"
             >
                 <div class="space-y-4">
-                    <p class="text-gray-300">
+                    <p class="text-amber-900">
                         Are you sure you want to delete this perfume?
                     </p>
                     <div class="flex gap-4 pt-4">
@@ -149,7 +149,7 @@
                         </button>
                         <button
                             @click="closeDeleteModal"
-                            class="flex-1 px-4 py-2 border border-gold-700 text-gold-400 font-medium rounded-lg hover:bg-gold-500 hover:bg-opacity-10 transition duration-300"
+                            class="flex-1 px-4 py-2 border border-amber-300 text-amber-700 font-medium rounded-lg hover:bg-amber-100 transition duration-300"
                         >
                             Cancel
                         </button>

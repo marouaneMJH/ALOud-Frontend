@@ -2,7 +2,7 @@
     <CrudLayout page-title="LLM Configuration">
         <div class="max-w-2xl mx-auto space-y-6">
             <div
-                class="rounded-lg border border-gold-700 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 shadow-xl shadow-gold-500/20 p-8"
+                class="rounded-lg border border-gold-700 bg-gradient-to-br from-gold-900 via-gold-950 to-gold-900 shadow-xl shadow-gold-500/20 p-8"
             >
                 <h3 class="text-lg font-semibold text-gold-300 mb-6">
                     Language Model Configuration
@@ -17,7 +17,7 @@
                         >
                         <select
                             v-model="config.provider"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
                             required
                         >
                             <option value="openai">
@@ -41,7 +41,7 @@
                         <input
                             v-model="config.model"
                             type="text"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
                             placeholder="e.g., gpt-4, claude-3-opus-20240229"
                             required
                         />
@@ -57,7 +57,7 @@
                             <input
                                 :type="showApiKey ? 'text' : 'password'"
                                 v-model="config.apiKey"
-                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 pr-10"
+                                class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 pr-10"
                                 placeholder="sk-..."
                             />
                             <button
@@ -68,7 +68,7 @@
                                 {{ showApiKey ? "Hide" : "Show" }}
                             </button>
                         </div>
-                        <p class="text-xs text-gray-500 mt-1">
+                        <p class="text-xs text-gold-500 mt-1">
                             API key will be stored securely (hint: sk-...)
                         </p>
                     </div>
@@ -91,7 +91,7 @@
                             step="0.1"
                             class="w-full"
                         />
-                        <p class="text-xs text-gray-500 mt-1">
+                        <p class="text-xs text-gold-500 mt-1">
                             Lower = more deterministic, Higher = more creative
                             (0-2)
                         </p>
@@ -108,10 +108,10 @@
                             type="number"
                             min="1"
                             max="4000"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
                             placeholder="2000"
                         />
-                        <p class="text-xs text-gray-500 mt-1">
+                        <p class="text-xs text-gold-500 mt-1">
                             Maximum tokens for generated responses
                         </p>
                     </div>
@@ -134,7 +134,7 @@
                             step="0.05"
                             class="w-full"
                         />
-                        <p class="text-xs text-gray-500 mt-1">
+                        <p class="text-xs text-gold-500 mt-1">
                             Controls diversity of output (0-1)
                         </p>
                     </div>
@@ -147,7 +147,7 @@
                         >
                         <textarea
                             v-model="config.systemPrompt"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
                             rows="4"
                             placeholder="Define the behavior and instructions for the LLM..."
                         ></textarea>
@@ -192,7 +192,7 @@
                         <button
                             type="submit"
                             :disabled="isLoading"
-                            class="px-6 py-3 bg-gradient-to-r from-gold-500 to-gold-400 text-gray-900 font-medium rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
+                            class="px-6 py-3 bg-gradient-to-red from-gold-500 to-gold-400 text-gold-900 font-medium rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
                         >
                             {{ isLoading ? "Saving..." : "Save Configuration" }}
                         </button>

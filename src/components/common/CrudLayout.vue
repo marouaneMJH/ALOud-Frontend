@@ -6,7 +6,7 @@
         >
             <div class="p-6 border-b border-gold-700">
                 <h1
-                    class="text-2xl font-bold bg-gradient-to-r from-gold-400 to-gold-300 bg-clip-text text-transparent"
+                    class="text-2xl font-bold bg-gradient-to-red from-gold-400 to-gold-300 bg-clip-text text-transparent"
                 >
                     ALOud Admin
                 </h1>
@@ -22,7 +22,7 @@
                     :class="
                         isActive('/dashboard')
                             ? 'bg-gold-500 bg-opacity-20 text-gold-300 font-semibold border border-gold-500 shadow-golden-glow'
-                            : 'text-gray-300 hover:text-gold-300 hover:bg-gray-800'
+                            : 'text-gold-300 hover:text-gold-300 hover:bg-gold-800'
                     "
                 >
                     Dashboard
@@ -42,7 +42,7 @@
                         :class="
                             isActive(item.path)
                                 ? 'bg-gold-500 bg-opacity-20 text-gold-300 font-semibold border-l-2 border-gold-400'
-                                : 'text-gray-300 hover:text-gold-300 hover:bg-gray-800 hover:border-l-2 hover:border-gold-500'
+                                : 'text-gold-300 hover:text-gold-300 hover:bg-gold-800 hover:border-l-2 hover:border-gold-500'
                         "
                     >
                         {{ item.label }}
@@ -61,7 +61,7 @@
                         :class="
                             isActive('/expert-system')
                                 ? 'bg-gold-500 bg-opacity-20 text-gold-300 font-semibold border-l-2 border-gold-400'
-                                : 'text-gray-300 hover:text-gold-300 hover:bg-gray-800 hover:border-l-2 hover:border-gold-500'
+                                : 'text-gold-300 hover:text-gold-300 hover:bg-gold-800 hover:border-l-2 hover:border-gold-500'
                         "
                     >
                         Expert System
@@ -72,7 +72,7 @@
                         :class="
                             isActive('/llm-config')
                                 ? 'bg-gold-500 bg-opacity-20 text-gold-300 font-semibold border-l-2 border-gold-400'
-                                : 'text-gray-300 hover:text-gold-300 hover:bg-gray-800 hover:border-l-2 hover:border-gold-500'
+                                : 'text-gold-300 hover:text-gold-300 hover:bg-gold-800 hover:border-l-2 hover:border-gold-500'
                         "
                     >
                         LLM Configuration
@@ -85,7 +85,7 @@
         <div class="flex-1 flex flex-col overflow-hidden">
             <!-- Header -->
             <header
-                class="bg-gold-900 border-b border-gold-700 bg-gradient-to-r from-gray-900 via-gray-900 to-gold-950 px-8 py-4 flex justify-between items-center shadow-lg"
+                class="bg-gold-900 border-b border-gold-700 bg-gradient-to-red from-gold-900 via-gold-900 to-gold-950 px-8 py-4 flex justify-between items-center shadow-lg"
             >
                 <h2 class="text-2xl font-semibold text-gold-300">
                     {{ pageTitle }}

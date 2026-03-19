@@ -1,13 +1,13 @@
 <template>
     <div
-        class="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 py-8"
+        class="flex items-center justify-center min-h-screen bg-gradient-to-br from-gold-950 via-gold-900 to-gold-950 py-8"
     >
         <!-- Register Card -->
         <div class="w-full max-w-md">
             <!-- Logo/Title -->
             <div class="text-center mb-8">
                 <h1
-                    class="text-4xl font-bold bg-gradient-to-r from-gold-400 to-gold-300 bg-clip-text text-transparent mb-2"
+                    class="text-4xl font-bold bg-gradient-to-red from-gold-400 to-gold-300 bg-clip-text text-transparent mb-2"
                 >
                     ALOud Admin
                 </h1>
@@ -18,7 +18,7 @@
 
             <!-- Card Container -->
             <div
-                class="rounded-lg border border-gold-700 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 p-8 shadow-lg"
+                class="rounded-lg border border-gold-700 bg-gradient-to-br from-gold-900 via-gold-950 to-gold-900 p-8 shadow-lg"
             >
                 <!-- Form Title -->
                 <h2 class="text-2xl font-semibold text-gold-300 mb-6">
@@ -39,7 +39,7 @@
                             placeholder="John"
                             required
                             :disabled="isSubmitting"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent disabled:opacity-50"
+                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent disabled:opacity-50"
                         />
                     </div>
 
@@ -55,7 +55,7 @@
                             placeholder="Doe"
                             required
                             :disabled="isSubmitting"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent disabled:opacity-50"
+                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent disabled:opacity-50"
                         />
                     </div>
 
@@ -71,7 +71,7 @@
                             placeholder="john@example.com"
                             required
                             :disabled="isSubmitting"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent disabled:opacity-50"
+                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent disabled:opacity-50"
                         />
                     </div>
 
@@ -88,7 +88,7 @@
                             required
                             minlength="8"
                             :disabled="isSubmitting"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent disabled:opacity-50"
+                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent disabled:opacity-50"
                         />
                         <p class="text-xs text-gold-600 mt-1">
                             Minimum 8 characters
@@ -107,7 +107,7 @@
                             placeholder="••••••••"
                             required
                             :disabled="isSubmitting"
-                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent disabled:opacity-50"
+                            class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent disabled:opacity-50"
                         />
                     </div>
 
@@ -135,7 +135,7 @@
                     <button
                         type="submit"
                         :disabled="isSubmitting"
-                        class="w-full px-4 py-2 bg-gradient-to-r from-gold-500 to-gold-400 text-gray-900 font-semibold rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
+                        class="w-full px-4 py-2 bg-gradient-to-red from-gold-500 to-gold-400 text-gold-900 font-semibold rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
                     >
                         {{
                             isSubmitting
@@ -154,7 +154,7 @@
 
                 <!-- Login Link -->
                 <div class="text-center">
-                    <p class="text-gray-400 text-sm mb-2">
+                    <p class="text-gold-400 text-sm mb-2">
                         Already have an account?
                     </p>
                     <router-link
@@ -174,7 +174,7 @@
             title="Verify Email"
         >
             <div class="space-y-4">
-                <p class="text-gray-300">
+                <p class="text-gold-300">
                     A verification code has been sent to
                     <span class="font-semibold text-gold-300">{{
                         authStore.verificationEmail
@@ -191,7 +191,7 @@
                         placeholder="000000"
                         required
                         :disabled="isVerifying"
-                        class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent"
+                        class="w-full px-4 py-2 border border-gold-700 bg-gold-900 text-gold-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent"
                     />
                 </div>
 
@@ -206,7 +206,7 @@
                     <button
                         @click="handleVerify"
                         :disabled="isVerifying"
-                        class="flex-1 px-4 py-2 bg-gradient-to-r from-gold-500 to-gold-400 text-gray-900 font-medium rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
+                        class="flex-1 px-4 py-2 bg-gradient-to-red from-gold-500 to-gold-400 text-gold-900 font-medium rounded-lg hover:shadow-golden-glow transition duration-300 disabled:opacity-50"
                     >
                         {{ isVerifying ? "Verifying..." : "Verify" }}
                     </button>

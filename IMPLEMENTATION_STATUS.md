@@ -269,7 +269,7 @@ onMounted(async () => {
 
 ```vue
 <!-- Primary Action (Create/Update) -->
-<button class="px-4 py-2 bg-gradient-to-r from-gold-500 to-gold-400 text-gray-900 font-medium rounded-lg hover:shadow-golden-glow transition duration-300">
+<button class="px-4 py-2 bg-gradient-to-red from-gold-500 to-gold-400 text-gray-900 font-medium rounded-lg hover:shadow-golden-glow transition duration-300">
 
 <!-- Secondary Action (Cancel) -->
 <button class="px-4 py-2 border border-gold-700 text-gold-400 font-medium rounded-lg hover:bg-gold-500 hover:bg-opacity-10 transition duration-300">

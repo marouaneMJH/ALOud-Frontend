@@ -255,7 +255,7 @@ All endpoints are documented in `API_INTEGRATION_GUIDE.md`:
 - Use `border-gold-700` for borders
 - Use `text-gold-300` or `text-gold-400` for text
 - Use `shadow-golden-glow` for hover effects
-- Use `bg-gradient-to-r from-gold-500 to-gold-400` for buttons
+- Use `bg-gradient-to-red from-gold-500 to-gold-400` for buttons
 - Use `bg-gold-950` for dark backgrounds
 - Use `bg-gold-900` for slightly lighter backgrounds
 

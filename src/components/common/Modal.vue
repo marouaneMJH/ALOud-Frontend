@@ -1,30 +1,37 @@
-<template>
-  <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50">
-    <div class="rounded-lg border border-gold-700 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 shadow-xl shadow-gold-500/20 max-w-md w-full mx-4">
-      <!-- Header -->
-      <div class="px-6 py-4 border-b border-gold-700 bg-gradient-to-r from-gray-900 to-gold-950">
-        <h3 class="text-lg font-semibold text-gold-300">{{ title }}</h3>
-      </div>
-
-      <!-- Content -->
-      <div class="px-6 py-4">
-        <slot></slot>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
+import { computed } from "vue";
+import Dialog from "@/components/ui/Dialog.vue";
+import DialogHeader from "@/components/ui/DialogHeader.vue";
+import DialogTitle from "@/components/ui/DialogTitle.vue";
+import DialogContent from "@/components/ui/DialogContent.vue";
+
 interface Props {
-  isOpen?: boolean;
-  title: string;
+    isOpen?: boolean;
+    title: string;
 }
 
-withDefaults(defineProps<Props>(), {
-  isOpen: false,
+const props = withDefaults(defineProps<Props>(), {
+    isOpen: false,
 });
 
 const emit = defineEmits<{
-  close: [];
+    close: [];
 }>();
+
+const handleOpenChange = (open: boolean) => {
+    if (!open) {
+        emit("close");
+    }
+};
 </script>
+
+<template>
+    <Dialog :open="props.isOpen" @update:open="handleOpenChange">
+        <DialogHeader>
+            <DialogTitle>{{ title }}</DialogTitle>
+        </DialogHeader>
+        <DialogContent>
+            <slot />
+        </DialogContent>
+    </Dialog>
+</template>

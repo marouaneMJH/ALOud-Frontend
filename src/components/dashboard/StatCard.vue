@@ -1,7 +1,35 @@
+<script setup lang="ts">
+import { computed } from "vue";
+import Card from "@/components/ui/Card.vue";
+
+interface Props {
+    title: string;
+    value: number | string;
+    trend?: number;
+    format?: "number" | "currency" | "percent";
+}
+
+const props = defineProps<Props>();
+
+const formatValue = (value: number | string) => {
+    if (typeof value === "string") return value;
+
+    if (value >= 1000000) {
+        return (value / 1000000).toFixed(1) + "M";
+    } else if (value >= 1000) {
+        return (value / 1000).toFixed(1) + "K";
+    }
+    return value.toLocaleString();
+};
+
+const trendClass = computed(() => {
+    if (!props.trend) return "";
+    return props.trend > 0 ? "text-green-600" : "text-red-600";
+});
+</script>
+
 <template>
-    <div
-        class="relative overflow-hidden rounded-lg border border-amber-300 bg-white p-6 shadow-sm hover:shadow-md transition-all duration-300"
-    >
+    <Card class="relative overflow-hidden p-6">
         <!-- Light gradient background -->
         <div
             class="absolute inset-0 bg-gradient-to-br from-amber-50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"
@@ -16,7 +44,7 @@
                     {{ title }}
                 </h3>
                 <div
-                    class="p-2 bg-amber-100 rounded-lg border border-amber-300"
+                    class="p-2 bg-amber-100 rounded-lg border border-amber-300 transition-transform duration-300 group-hover:scale-110"
                 >
                     <svg
                         class="w-5 h-5 text-amber-700"
@@ -31,7 +59,9 @@
             </div>
 
             <div class="mb-2">
-                <p class="text-3xl font-bold text-amber-900">
+                <p
+                    class="text-3xl font-bold text-amber-900 transition-transform duration-300"
+                >
                     {{ formatValue(value) }}
                 </p>
             </div>
@@ -39,8 +69,8 @@
             <div class="flex items-center gap-2">
                 <span
                     v-if="trend"
-                    class="text-sm font-medium"
-                    :class="trend > 0 ? 'text-green-600' : 'text-red-600'"
+                    class="text-sm font-medium transition-colors duration-300"
+                    :class="trendClass"
                 >
                     {{ trend > 0 ? "+" : "" }}{{ trend }}%
                 </span>
@@ -50,29 +80,7 @@
 
         <!-- Bottom accent line -->
         <div
-            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 to-transparent"
+            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-red from-amber-400 to-transparent"
         />
-    </div>
+    </Card>
 </template>
-
-<script setup lang="ts">
-interface Props {
-    title: string;
-    value: number | string;
-    trend?: number;
-    format?: "number" | "currency" | "percent";
-}
-
-defineProps<Props>();
-
-const formatValue = (value: number | string) => {
-    if (typeof value === "string") return value;
-
-    if (value >= 1000000) {
-        return (value / 1000000).toFixed(1) + "M";
-    } else if (value >= 1000) {
-        return (value / 1000).toFixed(1) + "K";
-    }
-    return value.toLocaleString();
-};
-</script>
