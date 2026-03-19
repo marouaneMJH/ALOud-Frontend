@@ -156,7 +156,9 @@ const loadData = async () => {
 
     try {
         const response = await familiesApi.getFamilies();
-        items.value = Array.isArray(response) ? response : response.data || [];
+        items.value = Array.isArray(response)
+            ? response
+            : response.items || response.data || [];
     } catch (err: any) {
         hasError.value = true;
         error.value = err?.message || "Failed to load families";

@@ -142,7 +142,9 @@ const loadBrands = async () => {
 
     try {
         const response = await brandsApi.getBrands();
-        brands.value = Array.isArray(response) ? response : response.data || [];
+        brands.value = Array.isArray(response)
+            ? response
+            : response.items || response.data || [];
     } catch (err: any) {
         hasError.value = true;
         error.value = err?.message || "Failed to load brands";

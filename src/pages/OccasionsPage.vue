@@ -174,7 +174,9 @@ const loadData = async () => {
     error.value = "";
     try {
         const response = await occasionsApi.getOccasions();
-        items.value = Array.isArray(response) ? response : response.data || [];
+        items.value = Array.isArray(response)
+            ? response
+            : response.items || response.data || [];
     } catch (err: any) {
         hasError.value = true;
         error.value = err?.message || "Failed to load occasions";
