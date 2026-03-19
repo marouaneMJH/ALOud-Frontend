@@ -1,29 +1,30 @@
 {
-  "name": "aloud-frontend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "type-check": "tsc --noEmit"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.2",
-    "@vitejs/plugin-vue": "^6.0.5",
-    "autoprefixer": "^10.4.27",
-    "axios": "^1.13.6",
-    "pinia": "^3.0.4",
-    "postcss": "^8.5.8",
-    "puppeteer": "^24.39.1",
-    "tailwindcss": "^4.2.2",
-    "typescript": "^5.9.3",
-    "vite": "^8.0.0",
-    "vue": "^3.5.30",
-    "vue-router": "^5.0.3"
-  }
+    "type": "module",
+    "name": "aloud-frontend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "type-check": "tsc --noEmit"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@tailwindcss/postcss": "^4.2.2",
+        "@vitejs/plugin-vue": "^6.0.5",
+        "autoprefixer": "^10.4.27",
+        "axios": "^1.13.6",
+        "pinia": "^3.0.4",
+        "postcss": "^8.5.8",
+        "puppeteer": "^24.39.1",
+        "tailwindcss": "^4.2.2",
+        "typescript": "^5.9.3",
+        "vite": "^8.0.0",
+        "vue": "^3.5.30",
+        "vue-router": "^5.0.3"
+    }
 }

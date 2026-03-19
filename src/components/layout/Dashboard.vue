@@ -57,16 +57,16 @@
         <div v-if="isLoading" class="flex justify-center items-center py-20">
             <div class="flex flex-col items-center gap-4">
                 <div
-                    class="animate-spin rounded-full h-12 w-12 border-2 border-gold-500 border-t-transparent"
+                    class="animate-spin rounded-full h-12 w-12 border-2 border-amber-500 border-t-transparent"
                 ></div>
-                <p class="text-gold-400">Loading dashboard data...</p>
+                <p class="text-amber-700">Loading dashboard data...</p>
             </div>
         </div>
 
         <!-- Error State -->
         <div
             v-if="hasError"
-            class="bg-red-950 border border-red-800 rounded-lg p-4 text-red-200"
+            class="bg-red-100 border border-red-300 rounded-lg p-4 text-red-800"
         >
             <p class="font-semibold mb-1">Error Loading Dashboard</p>
             <p class="text-sm">{{ error }}</p>
@@ -75,10 +75,10 @@
         <!-- Top Brands Section -->
         <div
             v-if="stats && stats.topBrands.length > 0"
-            class="rounded-lg border border-gold-700 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 p-6 shadow-lg"
+            class="rounded-lg border border-amber-300 bg-white p-6 shadow-sm"
         >
             <h3
-                class="text-lg font-semibold text-gold-300 mb-6 uppercase tracking-wider"
+                class="text-lg font-semibold text-amber-900 mb-6 uppercase tracking-wider"
             >
                 Top Brands
             </h3>
@@ -86,19 +86,21 @@
                 <div
                     v-for="brand in stats.topBrands"
                     :key="brand.brandId"
-                    class="group p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gold-700 border-opacity-30 hover:border-opacity-100 transition-all duration-200"
+                    class="group p-4 bg-amber-50 rounded-lg border border-amber-200 hover:border-amber-400 transition-all duration-200"
                 >
                     <div class="flex items-center justify-between mb-2">
-                        <span class="font-medium text-gray-200">{{
+                        <span class="font-medium text-amber-900">{{
                             brand.brandName
                         }}</span>
-                        <span class="text-gold-300 font-semibold"
+                        <span class="text-amber-700 font-semibold"
                             >{{ brand.perfumeCount }} products</span
                         >
                     </div>
-                    <div class="h-1.5 bg-gray-700 rounded-full overflow-hidden">
+                    <div
+                        class="h-1.5 bg-amber-200 rounded-full overflow-hidden"
+                    >
                         <div
-                            class="h-full bg-gradient-to-r from-gold-500 to-gold-400 group-hover:shadow-golden-glow transition-all duration-300"
+                            class="h-full bg-gradient-to-r from-amber-400 to-amber-300 group-hover:shadow-md transition-all duration-300"
                             :style="{
                                 width: `${(brand.perfumeCount / (stats.topBrands[0]?.perfumeCount || 1)) * 100}%`,
                             }"
@@ -111,10 +113,10 @@
         <!-- Top Families Section -->
         <div
             v-if="stats && stats.topFamilies.length > 0"
-            class="rounded-lg border border-gold-700 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 p-6 shadow-lg"
+            class="rounded-lg border border-amber-300 bg-white p-6 shadow-sm"
         >
             <h3
-                class="text-lg font-semibold text-gold-300 mb-6 uppercase tracking-wider"
+                class="text-lg font-semibold text-amber-900 mb-6 uppercase tracking-wider"
             >
                 Top Families
             </h3>
@@ -122,19 +124,21 @@
                 <div
                     v-for="family in stats.topFamilies"
                     :key="family.familyId"
-                    class="group p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gold-700 border-opacity-30 hover:border-opacity-100 transition-all duration-200"
+                    class="group p-4 bg-amber-50 rounded-lg border border-amber-200 hover:border-amber-400 transition-all duration-200"
                 >
                     <div class="flex items-center justify-between mb-2">
-                        <span class="font-medium text-gray-200">{{
+                        <span class="font-medium text-amber-900">{{
                             family.familyName
                         }}</span>
-                        <span class="text-gold-300 font-semibold"
+                        <span class="text-amber-700 font-semibold"
                             >{{ family.perfumeCount }} products</span
                         >
                     </div>
-                    <div class="h-1.5 bg-gray-700 rounded-full overflow-hidden">
+                    <div
+                        class="h-1.5 bg-amber-200 rounded-full overflow-hidden"
+                    >
                         <div
-                            class="h-full bg-gradient-to-r from-gold-500 to-gold-400 group-hover:shadow-golden-glow transition-all duration-300"
+                            class="h-full bg-gradient-to-r from-amber-400 to-amber-300 group-hover:shadow-md transition-all duration-300"
                             :style="{
                                 width: `${(family.perfumeCount / (stats.topFamilies[0]?.perfumeCount || 1)) * 100}%`,
                             }"
@@ -147,34 +151,34 @@
         <!-- Recent Perfumes Section -->
         <div
             v-if="stats && stats.recentPerfumes.length > 0"
-            class="rounded-lg border border-gold-700 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 p-6 shadow-lg overflow-hidden"
+            class="rounded-lg border border-amber-300 bg-white p-6 shadow-sm overflow-hidden"
         >
             <h3
-                class="text-lg font-semibold text-gold-300 mb-6 uppercase tracking-wider"
+                class="text-lg font-semibold text-amber-900 mb-6 uppercase tracking-wider"
             >
                 Recently Added Products
             </h3>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
                     <thead>
-                        <tr class="border-b border-gold-700">
+                        <tr class="border-b border-amber-300">
                             <th
-                                class="text-left py-3 px-4 font-semibold text-gold-400 text-xs uppercase tracking-wider"
+                                class="text-left py-3 px-4 font-semibold text-amber-900 text-xs uppercase tracking-wider"
                             >
                                 Product Name
                             </th>
                             <th
-                                class="text-left py-3 px-4 font-semibold text-gold-400 text-xs uppercase tracking-wider"
+                                class="text-left py-3 px-4 font-semibold text-amber-900 text-xs uppercase tracking-wider"
                             >
                                 Brand
                             </th>
                             <th
-                                class="text-left py-3 px-4 font-semibold text-gold-400 text-xs uppercase tracking-wider"
+                                class="text-left py-3 px-4 font-semibold text-amber-900 text-xs uppercase tracking-wider"
                             >
                                 Gender Profile
                             </th>
                             <th
-                                class="text-left py-3 px-4 font-semibold text-gold-400 text-xs uppercase tracking-wider"
+                                class="text-left py-3 px-4 font-semibold text-amber-900 text-xs uppercase tracking-wider"
                             >
                                 Added Date
                             </th>
@@ -184,20 +188,18 @@
                         <tr
                             v-for="perfume in stats.recentPerfumes.slice(0, 5)"
                             :key="perfume.perfumeId"
-                            class="border-b border-gray-800 hover:bg-gold-500 hover:bg-opacity-5 transition-colors duration-200"
+                            class="border-b border-amber-200 hover:bg-amber-50 transition-colors duration-200"
                         >
-                            <td
-                                class="py-4 px-4 text-gray-300 font-medium text-gold-300"
-                            >
+                            <td class="py-4 px-4 text-amber-900 font-medium">
                                 {{ perfume.perfumeName }}
                             </td>
-                            <td class="py-4 px-4 text-gray-400">
+                            <td class="py-4 px-4 text-amber-700">
                                 {{ perfume.brandName }}
                             </td>
-                            <td class="py-4 px-4 text-gray-400">
+                            <td class="py-4 px-4 text-amber-700">
                                 {{ perfume.genderProfile || "N/A" }}
                             </td>
-                            <td class="py-4 px-4 text-gray-400 text-xs">
+                            <td class="py-4 px-4 text-amber-700 text-xs">
                                 {{
                                     new Date(
                                         perfume.createdAt,
