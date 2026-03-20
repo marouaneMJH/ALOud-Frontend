@@ -1,126 +1,16 @@
-<template>
-    <CrudLayout page-title="Families Management">
-        <div class="space-y-6">
-            <!-- Create/Edit Modal -->
-            <Modal
-                v-if="showModal"
-                @close="closeModal"
-                :title="editingItem ? 'Edit Family' : 'Create New Family'"
-            >
-                <form @submit.prevent="submitForm" class="space-y-4">
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-foreground mb-2"
-                            >Family Name</label
-                        >
-                        <input
-                            v-model="formData.name"
-                            type="text"
-                            placeholder="e.g., Floral"
-                            required
-                            class="w-full px-4 py-2 border border-border bg-white text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        />
-                    </div>
-
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-foreground mb-2"
-                            >Description</label
-                        >
-                        <textarea
-                            v-model="formData.description"
-                            placeholder="Family description..."
-                            rows="3"
-                            class="w-full px-4 py-2 border border-border bg-white text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        />
-                    </div>
-
-                    <div class="flex gap-4 pt-4">
-                        <button
-                            type="submit"
-                            :disabled="isSubmitting"
-                            class="flex-1 px-4 py-2 bg-gradient-to-r from-primary to-primary/90 text-muted font-medium rounded-lg hover:shadow-md transition duration-300 disabled:opacity-50"
-                        >
-                            {{
-                                isSubmitting
-                                    ? "Saving..."
-                                    : editingItem
-                                      ? "Update"
-                                      : "Create"
-                            }}
-                        </button>
-                        <button
-                            type="button"
-                            @click="closeModal"
-                            class="flex-1 px-4 py-2 border border-border text-muted-foreground font-medium rounded-lg hover:bg-muted transition duration-300"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-
-                    <div
-                        v-if="formError"
-                        class="p-3 bg-red-950 border border-red-800 text-red-200 rounded-lg text-sm"
-                    >
-                        {{ formError }}
-                    </div>
-                </form>
-            </Modal>
-
-            <!-- Delete Confirmation Modal -->
-            <Modal
-                v-if="showDeleteModal"
-                @close="closeDeleteModal"
-                title="Confirm Deletion"
-            >
-                <div class="space-y-4">
-                    <p class="text-foreground">
-                        Are you sure you want to delete this family? This action
-                        cannot be undone.
-                    </p>
-                    <div class="flex gap-4 pt-4">
-                        <button
-                            @click="confirmDelete"
-                            :disabled="isDeleting"
-                            class="flex-1 px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition duration-300 disabled:opacity-50"
-                        >
-                            {{ isDeleting ? "Deleting..." : "Delete" }}
-                        </button>
-                        <button
-                            @click="closeDeleteModal"
-                            class="flex-1 px-4 py-2 border border-border text-muted-foreground font-medium rounded-lg hover:bg-muted transition duration-300"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            </Modal>
-
-            <!-- Data Table -->
-            <DataTable
-                :items="items"
-                :columns="columns"
-                entity-name="Family"
-                :is-loading="isLoading"
-                :has-error="hasError"
-                :error="error"
-                @create="openCreateModal"
-                @edit="openEditModal"
-                @delete="startDelete"
-            />
-        </div>
-    </CrudLayout>
-</template>
-
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import CrudLayout from "@/components/common/CrudLayout.vue";
+import Layout from "@/components/layout/Layout.vue";
 import DataTable from "@/components/common/DataTable.vue";
 import Modal from "@/components/common/Modal.vue";
+import Input from "@/components/ui/Input.vue";
+import Textarea from "@/components/ui/Textarea.vue";
+import Label from "@/components/ui/Label.vue";
+import Button from "@/components/ui/Button.vue";
+import Alert from "@/components/ui/Alert.vue";
 import { familiesApi } from "@/api/families";
 import type { FamilyDto, CreateFamilyDto } from "@/types/api";
 
-// State
 const items = ref<FamilyDto[]>([]);
 const isLoading = ref(false);
 const hasError = ref(false);
@@ -143,12 +33,10 @@ const columns = [
     { key: "description", label: "Description" },
 ];
 
-// Lifecycle
 onMounted(async () => {
     await loadData();
 });
 
-// Functions
 const loadData = async () => {
     isLoading.value = true;
     hasError.value = false;
@@ -162,7 +50,6 @@ const loadData = async () => {
     } catch (err: any) {
         hasError.value = true;
         error.value = err?.message || "Failed to load families";
-        console.error("Error loading families:", err);
     } finally {
         isLoading.value = false;
     }
@@ -213,7 +100,6 @@ const submitForm = async () => {
         await loadData();
     } catch (err: any) {
         formError.value = err?.message || "Failed to save family";
-        console.error("Error saving family:", err);
     } finally {
         isSubmitting.value = false;
     }
@@ -240,9 +126,106 @@ const confirmDelete = async () => {
         await loadData();
     } catch (err: any) {
         error.value = err?.message || "Failed to delete family";
-        console.error("Error deleting family:", err);
     } finally {
         isDeleting.value = false;
     }
 };
 </script>
+
+<template>
+    <Layout page-title="Families Management">
+        <Modal
+            v-if="showModal"
+            @close="closeModal"
+            :title="editingItem ? 'Edit Family' : 'Create New Family'"
+        >
+            <form @submit.prevent="submitForm" class="space-y-4">
+                <div class="space-y-2">
+                    <Label for="name">Family Name</Label>
+                    <Input
+                        id="name"
+                        v-model="formData.name"
+                        type="text"
+                        placeholder="e.g., Floral"
+                        required
+                    />
+                </div>
+                <div class="space-y-2">
+                    <Label for="description">Description</Label>
+                    <Textarea
+                        id="description"
+                        v-model="formData.description"
+                        placeholder="Family description..."
+                        rows="3"
+                    />
+                </div>
+
+                <Alert v-if="formError" variant="destructive">
+                    {{ formError }}
+                </Alert>
+
+                <div class="flex gap-3 pt-4">
+                    <Button type="submit" class="flex-1" :disabled="isSubmitting">
+                        {{
+                            isSubmitting
+                                ? "Saving..."
+                                : editingItem
+                                  ? "Update"
+                                  : "Create"
+                        }}
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        class="flex-1"
+                        @click="closeModal"
+                    >
+                        Cancel
+                    </Button>
+                </div>
+            </form>
+        </Modal>
+
+        <Modal
+            v-if="showDeleteModal"
+            @close="closeDeleteModal"
+            title="Confirm Deletion"
+        >
+            <div class="space-y-4">
+                <p class="text-muted-foreground">
+                    Are you sure you want to delete this family? This action
+                    cannot be undone.
+                </p>
+                <div class="flex gap-3 pt-4">
+                    <Button
+                        variant="destructive"
+                        class="flex-1"
+                        :disabled="isDeleting"
+                        @click="confirmDelete"
+                    >
+                        {{ isDeleting ? "Deleting..." : "Delete" }}
+                    </Button>
+                    <Button
+                        variant="outline"
+                        class="flex-1"
+                        @click="closeDeleteModal"
+                    >
+                        Cancel
+                    </Button>
+                </div>
+            </div>
+        </Modal>
+
+        <DataTable
+            :items="items"
+            :columns="columns"
+            entity-name="Family"
+            :is-loading="isLoading"
+            :has-error="hasError"
+            :error="error"
+            @create="openCreateModal"
+            @edit="openEditModal"
+            @delete="startDelete"
+        />
+    </Layout>
+</template>

@@ -32,7 +32,10 @@ const sizes = {
                 )
             "
         />
-        <p v-if="$props.label" class="text-muted-foreground text-sm font-medium">
+        <p
+            v-if="$props.label"
+            class="text-muted-foreground text-sm font-medium"
+        >
             {{ $props.label }}
         </p>
     </div>

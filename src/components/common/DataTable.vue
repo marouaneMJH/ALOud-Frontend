@@ -2,12 +2,15 @@
 import { computed, ref } from "vue";
 import Button from "@/components/ui/Button.vue";
 import Input from "@/components/ui/Input.vue";
+import Card from "@/components/ui/Card.vue";
 import Table from "@/components/ui/Table.vue";
 import TableHeader from "@/components/ui/TableHeader.vue";
 import TableBody from "@/components/ui/TableBody.vue";
 import TableRow from "@/components/ui/TableRow.vue";
 import TableHead from "@/components/ui/TableHead.vue";
 import TableCell from "@/components/ui/TableCell.vue";
+import Alert from "@/components/ui/Alert.vue";
+import { Plus, Pencil, Trash2, Search, ChevronLeft, ChevronRight } from "lucide-vue-next";
 
 interface Column {
     key: string;
@@ -46,32 +49,39 @@ const filteredItems = computed(() => {
         filtered = filtered.filter((item) =>
             JSON.stringify(item)
                 .toLowerCase()
-                .includes(searchQuery.value.toLowerCase()),
+                .includes(searchQuery.value.toLowerCase())
         );
     }
 
     return filtered.slice(
         (currentPage.value - 1) * pageSize,
-        currentPage.value * pageSize,
+        currentPage.value * pageSize
     );
 });
+
+const totalPages = computed(() =>
+    Math.ceil(props.items.length / pageSize)
+);
 </script>
 
 <template>
-    <div class="space-y-6">
+    <div class="space-y-4">
         <!-- Toolbar -->
         <div class="flex justify-between items-center gap-4">
-            <div class="flex-1 flex gap-2">
+            <div class="relative flex-1 max-w-sm">
+                <Search
+                    class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground"
+                />
                 <Input
                     v-model="searchQuery"
                     type="text"
                     placeholder="Search..."
-                    class="flex-1 max-w-md"
+                    class="pl-9"
                 />
             </div>
-            <Button @click="$emit('create')" class="gap-2">
-                <span>+</span>
-                <span>New {{ entityName }}</span>
+            <Button @click="$emit('create')">
+                <Plus class="h-4 w-4 mr-2" />
+                New {{ entityName }}
             </Button>
         </div>
 
@@ -79,61 +89,53 @@ const filteredItems = computed(() => {
         <div v-if="isLoading" class="flex justify-center items-center py-20">
             <div class="flex flex-col items-center gap-4">
                 <div
-                    class="animate-spin rounded-full h-12 w-12 border-2 border-primary border-t-transparent"
-                ></div>
-                <p class="text-muted-foreground">Loading {{ entityName }}s...</p>
+                    class="animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent"
+                />
+                <p class="text-sm text-muted-foreground">
+                    Loading {{ entityName }}s...
+                </p>
             </div>
         </div>
 
         <!-- Error State -->
-        <div
-            v-else-if="hasError"
-            class="bg-red-100 border border-red-300 rounded-lg p-4 text-red-800"
-        >
-            <p class="font-semibold mb-1">Error</p>
-            <p class="text-sm">{{ error }}</p>
-        </div>
+        <Alert v-else-if="hasError" variant="destructive">
+            <p class="font-medium">Error loading data</p>
+            <p class="text-sm mt-1">{{ error }}</p>
+        </Alert>
 
         <!-- Table -->
-        <div
-            v-else
-            class="rounded-lg border border-border bg-white shadow-sm overflow-hidden"
-        >
+        <Card v-else class="overflow-hidden">
             <Table v-if="items.length > 0">
                 <TableHeader>
                     <TableRow>
                         <TableHead v-for="col in columns" :key="col.key">
                             {{ col.label }}
                         </TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead class="w-[100px]">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow
-                        v-for="item in filteredItems"
-                        :key="item.id"
-                        class="transition-colors hover:bg-muted"
-                    >
+                    <TableRow v-for="item in filteredItems" :key="item.id">
                         <TableCell v-for="col in columns" :key="col.key">
                             {{ item[col.key] }}
                         </TableCell>
                         <TableCell>
-                            <div class="flex gap-3">
+                            <div class="flex items-center gap-1">
                                 <Button
-                                    @click="$emit('edit', item)"
                                     variant="ghost"
-                                    size="sm"
-                                    class="text-primary hover:text-primary/80"
+                                    size="icon"
+                                    class="h-8 w-8"
+                                    @click="$emit('edit', item)"
                                 >
-                                    Edit
+                                    <Pencil class="h-4 w-4" />
                                 </Button>
                                 <Button
-                                    @click="$emit('delete', item.id)"
                                     variant="ghost"
-                                    size="sm"
-                                    class="text-red-600 hover:text-red-800"
+                                    size="icon"
+                                    class="h-8 w-8 text-destructive hover:text-destructive"
+                                    @click="$emit('delete', item.id)"
                                 >
-                                    Delete
+                                    <Trash2 class="h-4 w-4" />
                                 </Button>
                             </div>
                         </TableCell>
@@ -144,41 +146,48 @@ const filteredItems = computed(() => {
             <!-- Empty State -->
             <div
                 v-if="items.length === 0"
-                class="text-center py-16 text-muted-foreground"
+                class="flex flex-col items-center justify-center py-12 text-center"
             >
-                <p class="mb-2">No {{ entityName }}s found</p>
+                <div
+                    class="rounded-full bg-muted p-3 mb-4"
+                >
+                    <Search class="h-6 w-6 text-muted-foreground" />
+                </div>
+                <p class="text-sm font-medium text-foreground mb-1">
+                    No {{ entityName }}s found
+                </p>
                 <p class="text-xs text-muted-foreground">
                     Click "New {{ entityName }}" to create your first entry
                 </p>
             </div>
-        </div>
+        </Card>
 
         <!-- Pagination -->
         <div
-            v-if="items.length > 0"
-            class="flex justify-between items-center mt-6"
+            v-if="items.length > pageSize"
+            class="flex justify-between items-center"
         >
             <p class="text-sm text-muted-foreground">
-                Showing {{ (currentPage - 1) * pageSize + 1 }} to
-                {{ Math.min(currentPage * pageSize, items.length) }} of
-                {{ items.length }}
+                Page {{ currentPage }} of {{ totalPages }}
             </p>
             <div class="flex gap-2">
                 <Button
-                    :disabled="currentPage === 1"
-                    @click="currentPage--"
                     variant="outline"
                     size="sm"
+                    :disabled="currentPage === 1"
+                    @click="currentPage--"
                 >
+                    <ChevronLeft class="h-4 w-4 mr-1" />
                     Previous
                 </Button>
                 <Button
-                    :disabled="currentPage * pageSize >= items.length"
-                    @click="currentPage++"
                     variant="outline"
                     size="sm"
+                    :disabled="currentPage >= totalPages"
+                    @click="currentPage++"
                 >
                     Next
+                    <ChevronRight class="h-4 w-4 ml-1" />
                 </Button>
             </div>
         </div>

@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, type Component } from "vue";
 import Card from "@/components/ui/Card.vue";
+import CardHeader from "@/components/ui/CardHeader.vue";
+import CardTitle from "@/components/ui/CardTitle.vue";
+import CardContent from "@/components/ui/CardContent.vue";
+import { TrendingUp, TrendingDown } from "lucide-vue-next";
+import { cn } from "@/lib/utils";
 
 interface Props {
     title: string;
     value: number | string;
     trend?: number;
+    icon?: Component;
     format?: "number" | "currency" | "percent";
 }
 
@@ -22,65 +28,55 @@ const formatValue = (value: number | string) => {
     return value.toLocaleString();
 };
 
-const trendClass = computed(() => {
-    if (!props.trend) return "";
-    return props.trend > 0 ? "text-green-600" : "text-red-600";
-});
+const trendPositive = computed(() => props.trend && props.trend > 0);
+const trendNegative = computed(() => props.trend && props.trend < 0);
 </script>
 
 <template>
-    <Card class="relative overflow-hidden p-6">
-        <!-- Light gradient background -->
-        <div
-            class="absolute inset-0 bg-gradient-to-br from-muted to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"
-        />
-
-        <!-- Content -->
-        <div class="relative z-10">
-            <div class="flex items-center justify-between mb-4">
-                <h3
-                    class="text-sm font-semibold text-foreground uppercase tracking-wider"
-                >
-                    {{ title }}
-                </h3>
-                <div
-                    class="p-2 bg-muted rounded-lg border border-border transition-transform duration-300 group-hover:scale-110"
-                >
-                    <svg
-                        class="w-5 h-5 text-muted-foreground"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                    >
-                        <path
-                            d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
-                        />
-                    </svg>
-                </div>
+    <Card>
+        <CardHeader
+            class="flex flex-row items-center justify-between space-y-0 pb-2"
+        >
+            <CardTitle class="text-sm font-medium text-muted-foreground">
+                {{ title }}
+            </CardTitle>
+            <component
+                v-if="icon"
+                :is="icon"
+                class="h-4 w-4 text-muted-foreground"
+            />
+        </CardHeader>
+        <CardContent>
+            <div class="text-2xl font-bold text-foreground">
+                {{ formatValue(value) }}
             </div>
-
-            <div class="mb-2">
-                <p
-                    class="text-3xl font-bold text-foreground transition-transform duration-300"
-                >
-                    {{ formatValue(value) }}
-                </p>
-            </div>
-
-            <div class="flex items-center gap-2">
+            <div
+                v-if="trend !== undefined"
+                class="flex items-center gap-1 text-xs mt-1"
+            >
+                <TrendingUp
+                    v-if="trendPositive"
+                    class="h-3 w-3 text-emerald-500"
+                />
+                <TrendingDown
+                    v-else-if="trendNegative"
+                    class="h-3 w-3 text-rose-500"
+                />
                 <span
-                    v-if="trend"
-                    class="text-sm font-medium transition-colors duration-300"
-                    :class="trendClass"
+                    :class="
+                        cn(
+                            trendPositive && 'text-emerald-500',
+                            trendNegative && 'text-rose-500',
+                            !trendPositive &&
+                                !trendNegative &&
+                                'text-muted-foreground'
+                        )
+                    "
                 >
                     {{ trend > 0 ? "+" : "" }}{{ trend }}%
                 </span>
-                <span class="text-xs text-muted-foreground">vs last month</span>
+                <span class="text-muted-foreground">from last month</span>
             </div>
-        </div>
-
-        <!-- Bottom accent line -->
-        <div
-            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-transparent"
-        />
+        </CardContent>
     </Card>
 </template>

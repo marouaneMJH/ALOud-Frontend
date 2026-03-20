@@ -1,244 +1,20 @@
-<template>
-    <div
-        class="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-8"
-    >
-        <!-- Register Card -->
-        <div class="w-full max-w-md">
-            <!-- Logo/Title -->
-            <div class="text-center mb-8">
-                <h1
-                    class="text-4xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent mb-2"
-                >
-                    ALOud Admin
-                </h1>
-                <p class="text-primary text-sm">
-                    Perfume Management Dashboard
-                </p>
-            </div>
-
-            <!-- Card Container -->
-            <div
-                class="rounded-lg border border-border bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 p-8 shadow-lg"
-            >
-                <!-- Form Title -->
-                <h2 class="text-2xl font-semibold text-muted-foreground mb-6">
-                    Create Account
-                </h2>
-
-                <!-- Registration Form -->
-                <form @submit.prevent="handleRegister" class="space-y-4">
-                    <!-- First Name -->
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-muted-foreground mb-2"
-                            >First Name</label
-                        >
-                        <input
-                            v-model="formData.firstName"
-                            type="text"
-                            placeholder="John"
-                            required
-                            :disabled="isSubmitting"
-                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
-                        />
-                    </div>
-
-                    <!-- Last Name -->
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-muted-foreground mb-2"
-                            >Last Name</label
-                        >
-                        <input
-                            v-model="formData.lastName"
-                            type="text"
-                            placeholder="Doe"
-                            required
-                            :disabled="isSubmitting"
-                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
-                        />
-                    </div>
-
-                    <!-- Email -->
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-muted-foreground mb-2"
-                            >Email Address</label
-                        >
-                        <input
-                            v-model="formData.email"
-                            type="email"
-                            placeholder="john@example.com"
-                            required
-                            :disabled="isSubmitting"
-                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
-                        />
-                    </div>
-
-                    <!-- Password -->
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-muted-foreground mb-2"
-                            >Password</label
-                        >
-                        <input
-                            v-model="formData.password"
-                            type="password"
-                            placeholder="••••••••"
-                            required
-                            minlength="8"
-                            :disabled="isSubmitting"
-                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
-                        />
-                        <p class="text-xs text-muted-foreground mt-1">
-                            Minimum 8 characters
-                        </p>
-                    </div>
-
-                    <!-- Confirm Password -->
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-muted-foreground mb-2"
-                            >Confirm Password</label
-                        >
-                        <input
-                            v-model="formData.confirmPassword"
-                            type="password"
-                            placeholder="••••••••"
-                            required
-                            :disabled="isSubmitting"
-                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
-                        />
-                    </div>
-
-                    <!-- Validation Errors -->
-                    <div
-                        v-if="validationErrors.length > 0"
-                        class="p-3 bg-red-950 border border-red-800 text-red-200 rounded-lg text-sm"
-                    >
-                        <ul class="list-disc list-inside space-y-1">
-                            <li v-for="(err, i) in validationErrors" :key="i">
-                                {{ err }}
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- API Errors -->
-                    <div
-                        v-if="error"
-                        class="p-3 bg-red-950 border border-red-800 text-red-200 rounded-lg text-sm"
-                    >
-                        {{ error }}
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button
-                        type="submit"
-                        :disabled="isSubmitting"
-                        class="w-full px-4 py-2 bg-gradient-to-r from-primary to-primary/80 text-slate-900 font-semibold rounded-lg hover:shadow-md transition duration-300 disabled:opacity-50"
-                    >
-                        {{
-                            isSubmitting
-                                ? "Creating Account..."
-                                : "Create Account"
-                        }}
-                    </button>
-                </form>
-
-                <!-- Divider -->
-                <div class="my-6 flex items-center gap-4">
-                    <div class="flex-1 border-t border-border" />
-                    <span class="text-muted-foreground text-sm">or</span>
-                    <div class="flex-1 border-t border-border" />
-                </div>
-
-                <!-- Login Link -->
-                <div class="text-center">
-                    <p class="text-muted-foreground text-sm mb-2">
-                        Already have an account?
-                    </p>
-                    <router-link
-                        to="/login"
-                        class="inline-block px-4 py-2 border border-border text-muted-foreground font-medium rounded-lg hover:bg-primary hover:bg-opacity-10 transition duration-300"
-                    >
-                        Sign In
-                    </router-link>
-                </div>
-            </div>
-        </div>
-
-        <!-- Email Verification Modal -->
-        <Modal
-            v-if="showVerificationModal"
-            @close="closeVerificationModal"
-            title="Verify Email"
-        >
-            <div class="space-y-4">
-                <p class="text-muted-foreground">
-                    A verification code has been sent to
-                    <span class="font-semibold text-muted-foreground">{{
-                        authStore.verificationEmail
-                    }}</span>
-                </p>
-
-                <div>
-                    <label class="block text-sm font-medium text-muted-foreground mb-2"
-                        >Verification Code</label
-                    >
-                    <input
-                        v-model="verificationCode"
-                        type="text"
-                        placeholder="000000"
-                        required
-                        :disabled="isVerifying"
-                        class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    />
-                </div>
-
-                <div
-                    v-if="verificationError"
-                    class="p-3 bg-red-950 border border-red-800 text-red-200 rounded-lg text-sm"
-                >
-                    {{ verificationError }}
-                </div>
-
-                <div class="flex gap-4 pt-4">
-                    <button
-                        @click="handleVerify"
-                        :disabled="isVerifying"
-                        class="flex-1 px-4 py-2 bg-gradient-to-r from-primary to-primary/80 text-slate-900 font-medium rounded-lg hover:shadow-md transition duration-300 disabled:opacity-50"
-                    >
-                        {{ isVerifying ? "Verifying..." : "Verify" }}
-                    </button>
-                    <button
-                        @click="closeVerificationModal"
-                        :disabled="isVerifying"
-                        class="flex-1 px-4 py-2 border border-border text-muted-foreground font-medium rounded-lg hover:bg-primary hover:bg-opacity-10 transition duration-300 disabled:opacity-50"
-                    >
-                        Cancel
-                    </button>
-                </div>
-
-                <!-- Resend Code Link -->
-                <div class="text-center">
-                    <button
-                        @click="handleResendCode"
-                        :disabled="isVerifying"
-                        class="text-primary hover:text-primary/80 text-sm underline"
-                    >
-                        Didn't receive code? Resend
-                    </button>
-                </div>
-            </div>
-        </Modal>
-    </div>
-</template>
-
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useAuthStore } from "../stores/auth";
-import Modal from "../components/common/Modal.vue";
+import { useAuthStore } from "@/stores/auth";
+import Modal from "@/components/common/Modal.vue";
+import Card from "@/components/ui/Card.vue";
+import CardHeader from "@/components/ui/CardHeader.vue";
+import CardTitle from "@/components/ui/CardTitle.vue";
+import CardDescription from "@/components/ui/CardDescription.vue";
+import CardContent from "@/components/ui/CardContent.vue";
+import CardFooter from "@/components/ui/CardFooter.vue";
+import Input from "@/components/ui/Input.vue";
+import Label from "@/components/ui/Label.vue";
+import Button from "@/components/ui/Button.vue";
+import Alert from "@/components/ui/Alert.vue";
+import Separator from "@/components/ui/Separator.vue";
+import { Droplets } from "lucide-vue-next";
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -293,10 +69,8 @@ async function handleRegister() {
             formData.value.email,
             formData.value.password,
             formData.value.firstName,
-            formData.value.lastName,
+            formData.value.lastName
         );
-
-        // Show verification modal
         showVerificationModal.value = true;
     } catch (err: any) {
         error.value = err.message || "Registration failed. Please try again.";
@@ -317,10 +91,8 @@ async function handleVerify() {
     try {
         await authStore.verifyEmail(
             authStore.verificationEmail || formData.value.email,
-            verificationCode.value,
+            verificationCode.value
         );
-
-        // Show success and redirect to login
         closeVerificationModal();
         router.push("/login");
     } catch (err: any) {
@@ -336,7 +108,7 @@ async function handleResendCode() {
 
     try {
         await authStore.resendVerification(
-            authStore.verificationEmail || formData.value.email,
+            authStore.verificationEmail || formData.value.email
         );
         verificationError.value = null;
     } catch (err: any) {
@@ -350,3 +122,201 @@ function closeVerificationModal() {
     showVerificationModal.value = false;
 }
 </script>
+
+<template>
+    <div
+        class="flex min-h-screen items-center justify-center bg-background p-4"
+    >
+        <div class="w-full max-w-md space-y-6">
+            <!-- Logo -->
+            <div class="flex flex-col items-center gap-2">
+                <div
+                    class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary"
+                >
+                    <Droplets class="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h1 class="text-2xl font-bold text-foreground">ALOud Admin</h1>
+                <p class="text-sm text-muted-foreground">
+                    Perfume Management Dashboard
+                </p>
+            </div>
+
+            <!-- Register Card -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Create Account</CardTitle>
+                    <CardDescription>
+                        Fill in your details to create a new account
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form @submit.prevent="handleRegister" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <Label for="firstName">First Name</Label>
+                                <Input
+                                    id="firstName"
+                                    v-model="formData.firstName"
+                                    type="text"
+                                    placeholder="John"
+                                    required
+                                    :disabled="isSubmitting"
+                                />
+                            </div>
+                            <div class="space-y-2">
+                                <Label for="lastName">Last Name</Label>
+                                <Input
+                                    id="lastName"
+                                    v-model="formData.lastName"
+                                    type="text"
+                                    placeholder="Doe"
+                                    required
+                                    :disabled="isSubmitting"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <Label for="email">Email</Label>
+                            <Input
+                                id="email"
+                                v-model="formData.email"
+                                type="email"
+                                placeholder="john@example.com"
+                                required
+                                :disabled="isSubmitting"
+                            />
+                        </div>
+
+                        <div class="space-y-2">
+                            <Label for="password">Password</Label>
+                            <Input
+                                id="password"
+                                v-model="formData.password"
+                                type="password"
+                                placeholder="Min 8 characters"
+                                required
+                                minlength="8"
+                                :disabled="isSubmitting"
+                            />
+                        </div>
+
+                        <div class="space-y-2">
+                            <Label for="confirmPassword">Confirm Password</Label>
+                            <Input
+                                id="confirmPassword"
+                                v-model="formData.confirmPassword"
+                                type="password"
+                                placeholder="Confirm your password"
+                                required
+                                :disabled="isSubmitting"
+                            />
+                        </div>
+
+                        <Alert
+                            v-if="validationErrors.length > 0"
+                            variant="destructive"
+                        >
+                            <ul class="list-disc list-inside space-y-1 text-sm">
+                                <li
+                                    v-for="(err, i) in validationErrors"
+                                    :key="i"
+                                >
+                                    {{ err }}
+                                </li>
+                            </ul>
+                        </Alert>
+
+                        <Alert v-if="error" variant="destructive">
+                            {{ error }}
+                        </Alert>
+
+                        <Button
+                            type="submit"
+                            class="w-full"
+                            :disabled="isSubmitting"
+                        >
+                            {{
+                                isSubmitting
+                                    ? "Creating Account..."
+                                    : "Create Account"
+                            }}
+                        </Button>
+                    </form>
+                </CardContent>
+                <CardFooter class="flex flex-col gap-4">
+                    <Separator />
+                    <p class="text-sm text-muted-foreground">
+                        Already have an account?
+                        <router-link
+                            to="/login"
+                            class="font-medium text-primary underline-offset-4 hover:underline"
+                        >
+                            Sign in
+                        </router-link>
+                    </p>
+                </CardFooter>
+            </Card>
+        </div>
+
+        <!-- Email Verification Modal -->
+        <Modal
+            v-if="showVerificationModal"
+            @close="closeVerificationModal"
+            title="Verify Email"
+        >
+            <div class="space-y-4">
+                <p class="text-sm text-muted-foreground">
+                    A verification code has been sent to
+                    <span class="font-medium text-foreground">
+                        {{ authStore.verificationEmail }}
+                    </span>
+                </p>
+
+                <div class="space-y-2">
+                    <Label for="verificationCode">Verification Code</Label>
+                    <Input
+                        id="verificationCode"
+                        v-model="verificationCode"
+                        type="text"
+                        placeholder="000000"
+                        required
+                        :disabled="isVerifying"
+                    />
+                </div>
+
+                <Alert v-if="verificationError" variant="destructive">
+                    {{ verificationError }}
+                </Alert>
+
+                <div class="flex gap-3 pt-2">
+                    <Button
+                        class="flex-1"
+                        :disabled="isVerifying"
+                        @click="handleVerify"
+                    >
+                        {{ isVerifying ? "Verifying..." : "Verify" }}
+                    </Button>
+                    <Button
+                        variant="outline"
+                        class="flex-1"
+                        :disabled="isVerifying"
+                        @click="closeVerificationModal"
+                    >
+                        Cancel
+                    </Button>
+                </div>
+
+                <div class="text-center">
+                    <button
+                        class="text-sm text-primary hover:underline"
+                        :disabled="isVerifying"
+                        @click="handleResendCode"
+                    >
+                        Didn't receive code? Resend
+                    </button>
+                </div>
+            </div>
+        </Modal>
+    </div>
+</template>

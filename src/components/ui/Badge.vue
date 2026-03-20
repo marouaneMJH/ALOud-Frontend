@@ -11,9 +11,12 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const variants = {
-    default: "border-primary bg-primary text-primary-foreground hover:bg-primary/80",
-    secondary: "border-secondary bg-secondary text-secondary-foreground hover:bg-secondary/80",
-    destructive: "border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/80",
+    default:
+        "border-primary bg-primary text-primary-foreground hover:bg-primary/80",
+    secondary:
+        "border-secondary bg-secondary text-secondary-foreground hover:bg-secondary/80",
+    destructive:
+        "border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/80",
     outline: "border-input text-foreground",
 };
 </script>

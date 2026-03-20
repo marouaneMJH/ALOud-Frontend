@@ -1,235 +1,16 @@
-<template>
-    <CrudLayout page-title="LLM Configuration">
-        <div class="max-w-2xl mx-auto space-y-6">
-            <div
-                class="rounded-lg border border-border bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 shadow-xl shadow-primary/20 p-8"
-            >
-                <h3 class="text-lg font-semibold text-muted-foreground mb-6">
-                    Language Model Configuration
-                </h3>
-
-                <form @submit.prevent="submitConfig" class="space-y-6">
-                    <!-- LLM Provider Selection -->
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-muted-foreground mb-2"
-                            >LLM Provider</label
-                        >
-                        <select
-                            v-model="config.provider"
-                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                            required
-                        >
-                            <option value="openai">
-                                OpenAI (GPT-4, GPT-3.5)
-                            </option>
-                            <option value="anthropic">
-                                Anthropic (Claude)
-                            </option>
-                            <option value="cohere">Cohere</option>
-                            <option value="huggingface">Hugging Face</option>
-                            <option value="local">Local Model</option>
-                        </select>
-                    </div>
-
-                    <!-- Model Selection -->
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-muted-foreground mb-2"
-                            >Model</label
-                        >
-                        <input
-                            v-model="config.model"
-                            type="text"
-                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                            placeholder="e.g., gpt-4, claude-3-opus-20240229"
-                            required
-                        />
-                    </div>
-
-                    <!-- API Key -->
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-muted-foreground mb-2"
-                            >API Key</label
-                        >
-                        <div class="relative">
-                            <input
-                                :type="showApiKey ? 'text' : 'password'"
-                                v-model="config.apiKey"
-                                class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary pr-10"
-                                placeholder="sk-..."
-                            />
-                            <button
-                                type="button"
-                                @click="showApiKey = !showApiKey"
-                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-muted"
-                            >
-                                {{ showApiKey ? "Hide" : "Show" }}
-                            </button>
-                        </div>
-                        <p class="text-xs text-muted-foreground mt-1">
-                            API key will be stored securely (hint: sk-...)
-                        </p>
-                    </div>
-
-                    <!-- Temperature Slider -->
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-muted-foreground mb-2"
-                        >
-                            Temperature:
-                            <span class="text-muted-foreground font-semibold">{{
-                                config.temperature
-                            }}</span>
-                        </label>
-                        <input
-                            v-model.number="config.temperature"
-                            type="range"
-                            min="0"
-                            max="2"
-                            step="0.1"
-                            class="w-full"
-                        />
-                        <p class="text-xs text-muted-foreground mt-1">
-                            Lower = more deterministic, Higher = more creative
-                            (0-2)
-                        </p>
-                    </div>
-
-                    <!-- Max Tokens -->
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-muted-foreground mb-2"
-                            >Max Tokens</label
-                        >
-                        <input
-                            v-model.number="config.maxTokens"
-                            type="number"
-                            min="1"
-                            max="4000"
-                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                            placeholder="2000"
-                        />
-                        <p class="text-xs text-muted-foreground mt-1">
-                            Maximum tokens for generated responses
-                        </p>
-                    </div>
-
-                    <!-- Top P (Nucleus Sampling) -->
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-muted-foreground mb-2"
-                        >
-                            Top P (Nucleus Sampling):
-                            <span class="text-muted-foreground font-semibold">{{
-                                config.topP
-                            }}</span>
-                        </label>
-                        <input
-                            v-model.number="config.topP"
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.05"
-                            class="w-full"
-                        />
-                        <p class="text-xs text-muted-foreground mt-1">
-                            Controls diversity of output (0-1)
-                        </p>
-                    </div>
-
-                    <!-- System Prompt -->
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-muted-foreground mb-2"
-                            >System Prompt</label
-                        >
-                        <textarea
-                            v-model="config.systemPrompt"
-                            class="w-full px-4 py-2 border border-border bg-slate-700 text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                            rows="4"
-                            placeholder="Define the behavior and instructions for the LLM..."
-                        ></textarea>
-                    </div>
-
-                    <!-- Status Message -->
-                    <div
-                        v-if="connectionStatus"
-                        class="p-4 rounded-lg"
-                        :class="
-                            connectionStatus === 'connected'
-                                ? 'bg-green-950 border border-green-700'
-                                : 'bg-red-950 border border-red-800'
-                        "
-                    >
-                        <p
-                            :class="
-                                connectionStatus === 'connected'
-                                    ? 'text-green-400'
-                                    : 'text-red-400'
-                            "
-                            class="font-medium"
-                        >
-                            {{
-                                connectionStatus === "connected"
-                                    ? "Connected"
-                                    : "Connection Failed"
-                            }}
-                        </p>
-                    </div>
-
-                    <!-- Buttons -->
-                    <div class="flex gap-4">
-                        <button
-                            type="button"
-                            @click="testConnection"
-                            :disabled="isLoading"
-                            class="px-6 py-3 border border-border text-muted-foreground font-medium rounded-lg hover:bg-primary hover:bg-opacity-10 transition duration-300 disabled:opacity-50"
-                        >
-                            {{ isLoading ? "Testing..." : "Test Connection" }}
-                        </button>
-                        <button
-                            type="submit"
-                            :disabled="isLoading"
-                            class="px-6 py-3 bg-gradient-to-r from-primary to-primary/80 text-slate-900 font-medium rounded-lg hover:shadow-md transition duration-300 disabled:opacity-50"
-                        >
-                            {{ isLoading ? "Saving..." : "Save Configuration" }}
-                        </button>
-                        <button
-                            type="button"
-                            @click="resetConfig"
-                            class="px-6 py-3 border border-border text-muted-foreground font-medium rounded-lg hover:bg-primary hover:bg-opacity-10 transition duration-300"
-                        >
-                            Reset
-                        </button>
-                    </div>
-
-                    <!-- Success Message -->
-                    <div
-                        v-if="successMessage"
-                        class="p-4 bg-green-950 border border-green-800 text-green-400 rounded-lg"
-                    >
-                        <p class="font-medium">{{ successMessage }}</p>
-                    </div>
-
-                    <!-- Error Message -->
-                    <div
-                        v-if="error"
-                        class="p-4 bg-red-950 border border-red-800 text-red-200 rounded-lg"
-                    >
-                        <p class="font-medium">Error</p>
-                        <p>{{ error }}</p>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </CrudLayout>
-</template>
-
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import CrudLayout from "@/components/common/CrudLayout.vue";
+import Layout from "@/components/layout/Layout.vue";
+import Card from "@/components/ui/Card.vue";
+import CardHeader from "@/components/ui/CardHeader.vue";
+import CardTitle from "@/components/ui/CardTitle.vue";
+import CardContent from "@/components/ui/CardContent.vue";
+import Input from "@/components/ui/Input.vue";
+import Textarea from "@/components/ui/Textarea.vue";
+import Label from "@/components/ui/Label.vue";
+import Button from "@/components/ui/Button.vue";
+import Alert from "@/components/ui/Alert.vue";
+import { Eye, EyeOff } from "lucide-vue-next";
 
 const isLoading = ref(false);
 const error = ref("");
@@ -273,10 +54,8 @@ const testConnection = async () => {
     connectionStatus.value = null;
 
     try {
-        // Simulate connection test
         await new Promise((resolve) => setTimeout(resolve, 1500));
 
-        // Mock success with 80% probability
         if (Math.random() > 0.2) {
             connectionStatus.value = "connected";
             successMessage.value = "Successfully connected to LLM provider";
@@ -299,11 +78,8 @@ const submitConfig = async () => {
     successMessage.value = "";
 
     try {
-        // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 1000));
-
         successMessage.value = "Configuration saved successfully!";
-        console.log("Configuration saved:", config);
     } catch (err: any) {
         error.value = err.message || "Failed to save configuration";
     } finally {
@@ -311,3 +87,186 @@ const submitConfig = async () => {
     }
 };
 </script>
+
+<template>
+    <Layout page-title="LLM Configuration">
+        <div class="max-w-2xl mx-auto">
+            <Card>
+                <CardHeader>
+                    <CardTitle>Language Model Configuration</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <form @submit.prevent="submitConfig" class="space-y-6">
+                        <div class="space-y-2">
+                            <Label for="provider">LLM Provider</Label>
+                            <select
+                                id="provider"
+                                v-model="config.provider"
+                                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                                required
+                            >
+                                <option value="openai">
+                                    OpenAI (GPT-4, GPT-3.5)
+                                </option>
+                                <option value="anthropic">
+                                    Anthropic (Claude)
+                                </option>
+                                <option value="cohere">Cohere</option>
+                                <option value="huggingface">Hugging Face</option>
+                                <option value="local">Local Model</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <Label for="model">Model</Label>
+                            <Input
+                                id="model"
+                                v-model="config.model"
+                                type="text"
+                                placeholder="e.g., gpt-4, claude-3-opus-20240229"
+                                required
+                            />
+                        </div>
+
+                        <div class="space-y-2">
+                            <Label for="apiKey">API Key</Label>
+                            <div class="relative">
+                                <Input
+                                    id="apiKey"
+                                    :type="showApiKey ? 'text' : 'password'"
+                                    v-model="config.apiKey"
+                                    placeholder="sk-..."
+                                    class="pr-10"
+                                />
+                                <button
+                                    type="button"
+                                    @click="showApiKey = !showApiKey"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                                >
+                                    <Eye v-if="!showApiKey" class="h-4 w-4" />
+                                    <EyeOff v-else class="h-4 w-4" />
+                                </button>
+                            </div>
+                            <p class="text-xs text-muted-foreground">
+                                API key will be stored securely
+                            </p>
+                        </div>
+
+                        <div class="space-y-2">
+                            <Label>
+                                Temperature:
+                                <span class="text-foreground font-semibold">
+                                    {{ config.temperature }}
+                                </span>
+                            </Label>
+                            <input
+                                v-model.number="config.temperature"
+                                type="range"
+                                min="0"
+                                max="2"
+                                step="0.1"
+                                class="w-full accent-primary"
+                            />
+                            <p class="text-xs text-muted-foreground">
+                                Lower = more deterministic, Higher = more
+                                creative (0-2)
+                            </p>
+                        </div>
+
+                        <div class="space-y-2">
+                            <Label for="maxTokens">Max Tokens</Label>
+                            <Input
+                                id="maxTokens"
+                                v-model.number="config.maxTokens"
+                                type="number"
+                                min="1"
+                                max="4000"
+                                placeholder="2000"
+                            />
+                            <p class="text-xs text-muted-foreground">
+                                Maximum tokens for generated responses
+                            </p>
+                        </div>
+
+                        <div class="space-y-2">
+                            <Label>
+                                Top P (Nucleus Sampling):
+                                <span class="text-foreground font-semibold">
+                                    {{ config.topP }}
+                                </span>
+                            </Label>
+                            <input
+                                v-model.number="config.topP"
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.05"
+                                class="w-full accent-primary"
+                            />
+                            <p class="text-xs text-muted-foreground">
+                                Controls diversity of output (0-1)
+                            </p>
+                        </div>
+
+                        <div class="space-y-2">
+                            <Label for="systemPrompt">System Prompt</Label>
+                            <Textarea
+                                id="systemPrompt"
+                                v-model="config.systemPrompt"
+                                rows="4"
+                                placeholder="Define the behavior and instructions for the LLM..."
+                            />
+                        </div>
+
+                        <Alert
+                            v-if="connectionStatus === 'connected'"
+                            variant="success"
+                        >
+                            Connected successfully
+                        </Alert>
+
+                        <Alert
+                            v-if="connectionStatus === 'failed'"
+                            variant="destructive"
+                        >
+                            Connection failed
+                        </Alert>
+
+                        <div class="flex gap-3">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                :disabled="isLoading"
+                                @click="testConnection"
+                            >
+                                {{ isLoading ? "Testing..." : "Test Connection" }}
+                            </Button>
+                            <Button type="submit" :disabled="isLoading">
+                                {{
+                                    isLoading
+                                        ? "Saving..."
+                                        : "Save Configuration"
+                                }}
+                            </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                @click="resetConfig"
+                            >
+                                Reset
+                            </Button>
+                        </div>
+
+                        <Alert v-if="successMessage" variant="success">
+                            {{ successMessage }}
+                        </Alert>
+
+                        <Alert v-if="error" variant="destructive">
+                            {{ error }}
+                        </Alert>
+                    </form>
+                </CardContent>
+            </Card>
+        </div>
+    </Layout>
+</template>

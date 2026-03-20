@@ -4,7 +4,9 @@
         <aside class="w-64 bg-white shadow-lg overflow-y-auto">
             <div class="p-6 border-b border-border">
                 <h1 class="text-2xl font-bold text-blue-600">ALOud Admin</h1>
-                <p class="text-sm text-muted-foreground mt-1">Perfume Management</p>
+                <p class="text-sm text-muted-foreground mt-1">
+                    Perfume Management
+                </p>
             </div>
 
             <nav class="p-4">

@@ -1,113 +1,15 @@
-<template>
-    <CrudLayout page-title="Brands Management">
-        <div class="space-y-6">
-            <!-- Create/Edit Modal -->
-            <Modal
-                v-if="showModal"
-                @close="closeModal"
-                :title="editingBrand ? 'Edit Brand' : 'Create New Brand'"
-            >
-                <form @submit.prevent="submitBrand" class="space-y-4">
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-foreground mb-2"
-                            >Brand Name</label
-                        >
-                        <input
-                            v-model="formData.name"
-                            type="text"
-                            placeholder="e.g., Chanel"
-                            required
-                            class="w-full px-4 py-2 border border-border bg-white text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        />
-                    </div>
-
-                    <div class="flex gap-4 pt-4">
-                        <button
-                            type="submit"
-                            :disabled="isSubmitting"
-                            class="flex-1 px-4 py-2 bg-gradient-to-r from-primary to-primary/90 text-muted font-medium rounded-lg hover:shadow-md transition duration-300 disabled:opacity-50"
-                        >
-                            {{
-                                isSubmitting
-                                    ? "Saving..."
-                                    : editingBrand
-                                      ? "Update Brand"
-                                      : "Create Brand"
-                            }}
-                        </button>
-                        <button
-                            type="button"
-                            @click="closeModal"
-                            class="flex-1 px-4 py-2 border border-border text-muted-foreground font-medium rounded-lg hover:bg-muted transition duration-300"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-
-                    <div
-                        v-if="formError"
-                        class="p-3 bg-red-950 border border-red-800 text-red-200 rounded-lg text-sm"
-                    >
-                        {{ formError }}
-                    </div>
-                </form>
-            </Modal>
-
-            <!-- Delete Confirmation Modal -->
-            <Modal
-                v-if="showDeleteModal"
-                @close="closeDeleteModal"
-                title="Delete Brand"
-            >
-                <div class="space-y-4">
-                    <p class="text-foreground">
-                        Are you sure you want to delete this brand? This action
-                        cannot be undone.
-                    </p>
-                    <div class="flex gap-4 pt-4">
-                        <button
-                            @click="confirmDelete"
-                            :disabled="isDeleting"
-                            class="flex-1 px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition duration-300 disabled:opacity-50"
-                        >
-                            {{ isDeleting ? "Deleting..." : "Delete" }}
-                        </button>
-                        <button
-                            @click="closeDeleteModal"
-                            class="flex-1 px-4 py-2 border border-border text-muted-foreground font-medium rounded-lg hover:bg-muted transition duration-300"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            </Modal>
-
-            <!-- Data Table -->
-            <DataTable
-                :items="brands"
-                :columns="columns"
-                entity-name="Brand"
-                :is-loading="isLoading"
-                :has-error="hasError"
-                :error="error"
-                @create="openCreateModal"
-                @edit="openEditModal"
-                @delete="startDelete"
-            />
-        </div>
-    </CrudLayout>
-</template>
-
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import CrudLayout from "@/components/common/CrudLayout.vue";
+import Layout from "@/components/layout/Layout.vue";
 import DataTable from "@/components/common/DataTable.vue";
 import Modal from "@/components/common/Modal.vue";
+import Input from "@/components/ui/Input.vue";
+import Label from "@/components/ui/Label.vue";
+import Button from "@/components/ui/Button.vue";
+import Alert from "@/components/ui/Alert.vue";
 import { brandsApi } from "@/api/brands";
 import type { BrandDto, CreateBrandDto } from "@/types/api";
 
-// State
 const brands = ref<BrandDto[]>([]);
 const isLoading = ref(false);
 const hasError = ref(false);
@@ -129,12 +31,10 @@ const columns = [
     { key: "perfumeCount", label: "Product Count" },
 ];
 
-// Lifecycle
 onMounted(async () => {
     await loadBrands();
 });
 
-// Functions
 const loadBrands = async () => {
     isLoading.value = true;
     hasError.value = false;
@@ -148,7 +48,6 @@ const loadBrands = async () => {
     } catch (err: any) {
         hasError.value = true;
         error.value = err?.message || "Failed to load brands";
-        console.error("Error loading brands:", err);
     } finally {
         isLoading.value = false;
     }
@@ -198,7 +97,6 @@ const submitBrand = async () => {
         await loadBrands();
     } catch (err: any) {
         formError.value = err?.message || "Failed to save brand";
-        console.error("Error saving brand:", err);
     } finally {
         isSubmitting.value = false;
     }
@@ -225,9 +123,97 @@ const confirmDelete = async () => {
         await loadBrands();
     } catch (err: any) {
         error.value = err?.message || "Failed to delete brand";
-        console.error("Error deleting brand:", err);
     } finally {
         isDeleting.value = false;
     }
 };
 </script>
+
+<template>
+    <Layout page-title="Brands Management">
+        <Modal
+            v-if="showModal"
+            @close="closeModal"
+            :title="editingBrand ? 'Edit Brand' : 'Create New Brand'"
+        >
+            <form @submit.prevent="submitBrand" class="space-y-4">
+                <div class="space-y-2">
+                    <Label for="name">Brand Name</Label>
+                    <Input
+                        id="name"
+                        v-model="formData.name"
+                        type="text"
+                        placeholder="e.g., Chanel"
+                        required
+                    />
+                </div>
+
+                <Alert v-if="formError" variant="destructive">
+                    {{ formError }}
+                </Alert>
+
+                <div class="flex gap-3 pt-4">
+                    <Button type="submit" class="flex-1" :disabled="isSubmitting">
+                        {{
+                            isSubmitting
+                                ? "Saving..."
+                                : editingBrand
+                                  ? "Update Brand"
+                                  : "Create Brand"
+                        }}
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        class="flex-1"
+                        @click="closeModal"
+                    >
+                        Cancel
+                    </Button>
+                </div>
+            </form>
+        </Modal>
+
+        <Modal
+            v-if="showDeleteModal"
+            @close="closeDeleteModal"
+            title="Delete Brand"
+        >
+            <div class="space-y-4">
+                <p class="text-muted-foreground">
+                    Are you sure you want to delete this brand? This action
+                    cannot be undone.
+                </p>
+                <div class="flex gap-3 pt-4">
+                    <Button
+                        variant="destructive"
+                        class="flex-1"
+                        :disabled="isDeleting"
+                        @click="confirmDelete"
+                    >
+                        {{ isDeleting ? "Deleting..." : "Delete" }}
+                    </Button>
+                    <Button
+                        variant="outline"
+                        class="flex-1"
+                        @click="closeDeleteModal"
+                    >
+                        Cancel
+                    </Button>
+                </div>
+            </div>
+        </Modal>
+
+        <DataTable
+            :items="brands"
+            :columns="columns"
+            entity-name="Brand"
+            :is-loading="isLoading"
+            :has-error="hasError"
+            :error="error"
+            @create="openCreateModal"
+            @edit="openEditModal"
+            @delete="startDelete"
+        />
+    </Layout>
+</template>
