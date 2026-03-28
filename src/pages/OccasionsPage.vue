@@ -10,8 +10,12 @@ import Button from "@/components/ui/Button.vue";
 import Alert from "@/components/ui/Alert.vue";
 import { occasionsApi } from "@/api/occasions";
 import type { OccasionDto, CreateOccasionDto } from "@/types/api";
+import type { PaginationMeta } from "@/types/api";
 
 const items = ref<OccasionDto[]>([]);
+const pagination = ref<PaginationMeta | null>(null);
+const currentPage = ref(1);
+const searchQuery = ref("");
 const isLoading = ref(false);
 const hasError = ref(false);
 const error = ref("");
@@ -44,16 +48,30 @@ const loadData = async () => {
     hasError.value = false;
     error.value = "";
     try {
-        const response = await occasionsApi.getOccasions();
-        items.value = Array.isArray(response)
-            ? response
-            : response.items || response.data || [];
+        const response = await occasionsApi.getOccasions({
+            pageIndex: currentPage.value,
+            query: searchQuery.value,
+        });
+        items.value = response.items;
+        const { items: _, ...meta } = response;
+        pagination.value = meta;
     } catch (err: any) {
         hasError.value = true;
         error.value = err?.message || "Failed to load occasions";
     } finally {
         isLoading.value = false;
     }
+};
+
+const handlePageChange = async (page: number) => {
+    currentPage.value = page;
+    await loadData();
+};
+
+const handleSearch = async (query: string) => {
+    searchQuery.value = query;
+    currentPage.value = 1;
+    await loadData();
 };
 
 const openCreateModal = () => {
@@ -250,6 +268,7 @@ const confirmDelete = async () => {
         <DataTable
             :items="items"
             :columns="columns"
+            :pagination="pagination"
             entity-name="Occasion"
             :is-loading="isLoading"
             :has-error="hasError"
@@ -257,6 +276,8 @@ const confirmDelete = async () => {
             @create="openCreateModal"
             @edit="openEditModal"
             @delete="startDelete"
+            @page-change="handlePageChange"
+            @search="handleSearch"
         />
     </Layout>
 </template>

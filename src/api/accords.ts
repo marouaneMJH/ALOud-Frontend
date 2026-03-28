@@ -4,11 +4,13 @@ import { PaginatedResponse } from "../types/api";
 
 export const accordsApi = {
     async getAccords(
-        page: number = 1,
-        pageSize: number = 10,
+        params: { pageIndex?: number; pageSize?: number; query?: string } = {},
     ): Promise<PaginatedResponse<AccordDto>> {
+        const { pageIndex = 1, pageSize = 10, query = "" } = params;
+        const queryParams = [`pageIndex=${pageIndex}`, `pageSize=${pageSize}`];
+        if (query) queryParams.push(`query=${encodeURIComponent(query)}`);
         return apiClient.get<PaginatedResponse<AccordDto>>(
-            `/admin/accords?page=${page}&pageSize=${pageSize}`,
+            `/admin/accords?${queryParams.join("&")}`,
         );
     },
 

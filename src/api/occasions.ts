@@ -8,11 +8,13 @@ import { PaginatedResponse } from "../types/api";
 
 export const occasionsApi = {
     async getOccasions(
-        page: number = 1,
-        pageSize: number = 10,
+        params: { pageIndex?: number; pageSize?: number; query?: string } = {},
     ): Promise<PaginatedResponse<OccasionDto>> {
+        const { pageIndex = 1, pageSize = 10, query = "" } = params;
+        const queryParams = [`pageIndex=${pageIndex}`, `pageSize=${pageSize}`];
+        if (query) queryParams.push(`query=${encodeURIComponent(query)}`);
         return apiClient.get<PaginatedResponse<OccasionDto>>(
-            `/admin/occasions?page=${page}&pageSize=${pageSize}`,
+            `/admin/occasions?${queryParams.join("&")}`,
         );
     },
 

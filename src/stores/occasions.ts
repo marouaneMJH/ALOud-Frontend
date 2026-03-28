@@ -1,31 +1,26 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import { OccasionDto, CreateOccasionDto, UpdateOccasionDto } from '../types/api';
+import { OccasionDto, CreateOccasionDto, UpdateOccasionDto, PaginationMeta } from '../types/api';
 import { occasionsApi } from '../api/occasions';
 
 export const useOccasionsStore = defineStore('occasions', () => {
   const occasions = ref<OccasionDto[]>([]);
   const loading = ref(false);
   const error = ref<string | null>(null);
+  const pagination = ref<PaginationMeta | null>(null);
   const currentPage = ref(1);
-  const pageSize = ref(10);
-  const total = ref(0);
-
   const isLoading = computed(() => loading.value);
   const hasError = computed(() => error.value !== null);
-  const totalPages = computed(() => Math.ceil(total.value / pageSize.value));
 
-  async function fetchOccasions(page: number = 1) {
+  async function fetchOccasions(page: number = 1, pageSize: number = 10) {
     loading.value = true;
     error.value = null;
-    console.log('[Pinia] Starting to fetch occasions...');
     try {
-      const result = await occasionsApi.getOccasions(page, pageSize.value);
-      console.log('[Pinia] Received occasions:', result);
-      occasions.value = result.data;
-      currentPage.value = result.page;
-      total.value = result.total;
-      console.log('[Pinia] Occasions stored in state:', occasions.value);
+      const result = await occasionsApi.getOccasions(page, pageSize);
+      occasions.value = result.items;
+      pagination.value = { ...result };
+      delete (pagination.value as any).items;
+      currentPage.value = result.pageIndex;
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch occasions';
       console.error('[Pinia] Occasions error:', err);
@@ -96,16 +91,15 @@ export const useOccasionsStore = defineStore('occasions', () => {
     occasions,
     loading,
     error,
+    pagination,
     currentPage,
-    pageSize,
-    total,
-    totalPages,
     isLoading,
     hasError,
     fetchOccasions,
     createOccasion,
     updateOccasion,
     deleteOccasion,
-    reset,
+    reset
+  };
   };
 });

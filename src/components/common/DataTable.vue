@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { ref, watch } from "vue";
 import Button from "@/components/ui/Button.vue";
 import Input from "@/components/ui/Input.vue";
 import Card from "@/components/ui/Card.vue";
@@ -10,17 +10,27 @@ import TableRow from "@/components/ui/TableRow.vue";
 import TableHead from "@/components/ui/TableHead.vue";
 import TableCell from "@/components/ui/TableCell.vue";
 import Alert from "@/components/ui/Alert.vue";
-import { Plus, Pencil, Trash2, Search, ChevronLeft, ChevronRight } from "lucide-vue-next";
+import {
+    Plus,
+    Pencil,
+    Trash2,
+    Search,
+    ChevronLeft,
+    ChevronRight,
+} from "lucide-vue-next";
 
 interface Column {
     key: string;
     label: string;
 }
 
+import type { PaginationMeta } from "@/types/api";
+
 interface Props {
     items: any[];
     columns: Column[];
     entityName: string;
+    pagination?: PaginationMeta | null;
     isLoading?: boolean;
     hasError?: boolean;
     error?: string;
@@ -30,38 +40,27 @@ const props = withDefaults(defineProps<Props>(), {
     isLoading: false,
     hasError: false,
     error: "",
+    pagination: null,
 });
 
-defineEmits<{
+const emit = defineEmits<{
     create: [];
     edit: [item: any];
-    delete: [id: string];
+    delete: [item: any];
+    pageChange: [page: number];
+    search: [query: string];
 }>();
 
 const searchQuery = ref("");
-const currentPage = ref(1);
-const pageSize = 10;
 
-const filteredItems = computed(() => {
-    let filtered = props.items;
-
-    if (searchQuery.value) {
-        filtered = filtered.filter((item) =>
-            JSON.stringify(item)
-                .toLowerCase()
-                .includes(searchQuery.value.toLowerCase())
-        );
-    }
-
-    return filtered.slice(
-        (currentPage.value - 1) * pageSize,
-        currentPage.value * pageSize
-    );
+// Debounce search — emit to parent who calls the API
+let searchTimeout: ReturnType<typeof setTimeout>;
+watch(searchQuery, (val) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        emit("search", val);
+    }, 400);
 });
-
-const totalPages = computed(() =>
-    Math.ceil(props.items.length / pageSize)
-);
 </script>
 
 <template>
@@ -111,11 +110,11 @@ const totalPages = computed(() =>
                         <TableHead v-for="col in columns" :key="col.key">
                             {{ col.label }}
                         </TableHead>
-                        <TableHead class="w-[100px]">Actions</TableHead>
+                        <TableHead class="w-25">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow v-for="item in filteredItems" :key="item.id">
+                    <TableRow v-for="item in items" :key="item.id">
                         <TableCell v-for="col in columns" :key="col.key">
                             {{ item[col.key] }}
                         </TableCell>
@@ -133,7 +132,7 @@ const totalPages = computed(() =>
                                     variant="ghost"
                                     size="icon"
                                     class="h-8 w-8 text-destructive hover:text-destructive"
-                                    @click="$emit('delete', item.id)"
+                                    @click="$emit('delete', item)"
                                 >
                                     <Trash2 class="h-4 w-4" />
                                 </Button>
@@ -148,9 +147,7 @@ const totalPages = computed(() =>
                 v-if="items.length === 0"
                 class="flex flex-col items-center justify-center py-12 text-center"
             >
-                <div
-                    class="rounded-full bg-muted p-3 mb-4"
-                >
+                <div class="rounded-full bg-muted p-3 mb-4">
                     <Search class="h-6 w-6 text-muted-foreground" />
                 </div>
                 <p class="text-sm font-medium text-foreground mb-1">
@@ -162,20 +159,23 @@ const totalPages = computed(() =>
             </div>
         </Card>
 
-        <!-- Pagination -->
+        <!-- Pagination — driven entirely by backend metadata -->
         <div
-            v-if="items.length > pageSize"
+            v-if="pagination && pagination.totalPages > 1"
             class="flex justify-between items-center"
         >
             <p class="text-sm text-muted-foreground">
-                Page {{ currentPage }} of {{ totalPages }}
+                Page {{ pagination.pageIndex }} of {{ pagination.totalPages }}
+                <span class="ml-1 opacity-60"
+                    >({{ pagination.totalCount }} total)</span
+                >
             </p>
             <div class="flex gap-2">
                 <Button
                     variant="outline"
                     size="sm"
-                    :disabled="currentPage === 1"
-                    @click="currentPage--"
+                    :disabled="!pagination.hasPreviousPage"
+                    @click="$emit('pageChange', pagination.pageIndex - 1)"
                 >
                     <ChevronLeft class="h-4 w-4 mr-1" />
                     Previous
@@ -183,8 +183,8 @@ const totalPages = computed(() =>
                 <Button
                     variant="outline"
                     size="sm"
-                    :disabled="currentPage >= totalPages"
-                    @click="currentPage++"
+                    :disabled="!pagination.hasNextPage"
+                    @click="$emit('pageChange', pagination.pageIndex + 1)"
                 >
                     Next
                     <ChevronRight class="h-4 w-4 ml-1" />

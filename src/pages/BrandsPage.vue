@@ -10,7 +10,13 @@ import Alert from "@/components/ui/Alert.vue";
 import { brandsApi } from "@/api/brands";
 import type { BrandDto, CreateBrandDto } from "@/types/api";
 
+import type { PaginationMeta } from "@/types/api";
+
 const brands = ref<BrandDto[]>([]);
+const pagination = ref<PaginationMeta | null>(null);
+const currentPage = ref(1);
+const searchQuery = ref("");
+
 const isLoading = ref(false);
 const hasError = ref(false);
 const error = ref("");
@@ -41,16 +47,32 @@ const loadBrands = async () => {
     error.value = "";
 
     try {
-        const response = await brandsApi.getBrands();
-        brands.value = Array.isArray(response)
-            ? response
-            : response.items || response.data || [];
+        const response = await brandsApi.getBrands({
+            pageIndex: currentPage.value,
+            query: searchQuery.value,
+        });
+        // response.data holds { items, pageIndex, totalPages, ... }
+        brands.value = response.items;
+        // Use all pagination meta directly from backend
+        const { items, ...meta } = response;
+        pagination.value = meta;
     } catch (err: any) {
         hasError.value = true;
         error.value = err?.message || "Failed to load brands";
     } finally {
         isLoading.value = false;
     }
+};
+
+const handlePageChange = async (page: number) => {
+    currentPage.value = page;
+    await loadBrands();
+};
+
+const handleSearch = async (query: string) => {
+    searchQuery.value = query;
+    currentPage.value = 1; // reset to first page on new search
+    await loadBrands();
 };
 
 const openCreateModal = () => {
@@ -120,6 +142,10 @@ const confirmDelete = async () => {
     try {
         await brandsApi.deleteBrand(deletingBrand.value.id);
         closeDeleteModal();
+        // If we deleted the last item on this page, go back one page
+        if (brands.value.length === 1 && currentPage.value > 1) {
+            currentPage.value--;
+        }
         await loadBrands();
     } catch (err: any) {
         error.value = err?.message || "Failed to delete brand";
@@ -153,7 +179,11 @@ const confirmDelete = async () => {
                 </Alert>
 
                 <div class="flex gap-3 pt-4">
-                    <Button type="submit" class="flex-1" :disabled="isSubmitting">
+                    <Button
+                        type="submit"
+                        class="flex-1"
+                        :disabled="isSubmitting"
+                    >
                         {{
                             isSubmitting
                                 ? "Saving..."
@@ -181,8 +211,11 @@ const confirmDelete = async () => {
         >
             <div class="space-y-4">
                 <p class="text-muted-foreground">
-                    Are you sure you want to delete this brand? This action
-                    cannot be undone.
+                    Are you sure you want to delete
+                    <span class="font-medium text-foreground">{{
+                        deletingBrand?.name
+                    }}</span
+                    >? This action cannot be undone.
                 </p>
                 <div class="flex gap-3 pt-4">
                     <Button
@@ -207,6 +240,7 @@ const confirmDelete = async () => {
         <DataTable
             :items="brands"
             :columns="columns"
+            :pagination="pagination"
             entity-name="Brand"
             :is-loading="isLoading"
             :has-error="hasError"
@@ -214,6 +248,8 @@ const confirmDelete = async () => {
             @create="openCreateModal"
             @edit="openEditModal"
             @delete="startDelete"
+            @page-change="handlePageChange"
+            @search="handleSearch"
         />
     </Layout>
 </template>

@@ -2,13 +2,16 @@ import { apiClient } from "./client";
 import { BrandDto, CreateBrandDto, UpdateBrandDto } from "../types/api";
 import { PaginatedResponse } from "../types/api";
 
+
 export const brandsApi = {
     async getBrands(
-        page: number = 1,
-        pageSize: number = 10,
+        params: { pageIndex?: number; pageSize?: number; query?: string } = {},
     ): Promise<PaginatedResponse<BrandDto>> {
+        const { pageIndex = 1, pageSize = 10, query = "" } = params;
+        const queryParams = [`pageIndex=${pageIndex}`, `pageSize=${pageSize}`];
+        if (query) queryParams.push(`query=${encodeURIComponent(query)}`);
         return apiClient.get<PaginatedResponse<BrandDto>>(
-            `/admin/brands?page=${page}&pageSize=${pageSize}`,
+            `/admin/brands?${queryParams.join("&")}`,
         );
     },
 

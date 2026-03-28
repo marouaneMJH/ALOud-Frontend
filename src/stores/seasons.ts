@@ -1,31 +1,26 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import { SeasonDto, CreateSeasonDto, UpdateSeasonDto } from '../types/api';
+import { SeasonDto, CreateSeasonDto, UpdateSeasonDto, PaginationMeta } from '../types/api';
 import { seasonsApi } from '../api/seasons';
 
 export const useSeasonsStore = defineStore('seasons', () => {
   const seasons = ref<SeasonDto[]>([]);
   const loading = ref(false);
   const error = ref<string | null>(null);
+  const pagination = ref<PaginationMeta | null>(null);
   const currentPage = ref(1);
-  const pageSize = ref(10);
-  const total = ref(0);
-
   const isLoading = computed(() => loading.value);
   const hasError = computed(() => error.value !== null);
-  const totalPages = computed(() => Math.ceil(total.value / pageSize.value));
 
-  async function fetchSeasons(page: number = 1) {
+  async function fetchSeasons(page: number = 1, pageSize: number = 10) {
     loading.value = true;
     error.value = null;
-    console.log('[Pinia] Starting to fetch seasons...');
     try {
-      const result = await seasonsApi.getSeasons(page, pageSize.value);
-      console.log('[Pinia] Received seasons:', result);
-      seasons.value = result.data;
-      currentPage.value = result.page;
-      total.value = result.total;
-      console.log('[Pinia] Seasons stored in state:', seasons.value);
+      const result = await seasonsApi.getSeasons(page, pageSize);
+      seasons.value = result.items;
+      pagination.value = { ...result };
+      delete (pagination.value as any).items;
+      currentPage.value = result.pageIndex;
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch seasons';
       console.error('[Pinia] Seasons error:', err);
@@ -96,16 +91,15 @@ export const useSeasonsStore = defineStore('seasons', () => {
     seasons,
     loading,
     error,
+    pagination,
     currentPage,
-    pageSize,
-    total,
-    totalPages,
     isLoading,
     hasError,
     fetchSeasons,
     createSeason,
     updateSeason,
     deleteSeason,
-    reset,
+    reset
+  };
   };
 });

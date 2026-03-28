@@ -12,7 +12,7 @@ export const useAuthStore = defineStore("auth", () => {
     const verificationEmail = ref<string | null>(null); // For verification flow
 
     // Computed
-    const isAuthenticated = computed(() => !!token.value && !!user.value);
+    const isAuthenticated = computed(() => !!token.value);
     const isLoading = computed(() => loading.value);
     const hasError = computed(() => error.value !== null);
 
@@ -25,13 +25,23 @@ export const useAuthStore = defineStore("auth", () => {
         const storedToken = localStorage.getItem("authToken");
         const storedUser = localStorage.getItem("authUser");
 
-        if (storedToken && storedUser) {
+        if (storedToken) {
             token.value = storedToken;
-            user.value = JSON.parse(storedUser);
-            console.log(
-                "[Auth Store] Session restored from storage",
-                user.value,
-            );
+            console.log("[Auth Store] Token restored from storage");
+        }
+        
+        if (storedUser) {
+            try {
+                user.value = JSON.parse(storedUser);
+                console.log(
+                    "[Auth Store] Session user restored from storage",
+                    user.value,
+                );
+            } catch (err) {
+                console.error("[Auth Store] Failed to parse stored user", err);
+                // Don't fully logout if token is valid, just clear invalid user
+                localStorage.removeItem("authUser");
+            }
         }
     }
 
@@ -39,8 +49,10 @@ export const useAuthStore = defineStore("auth", () => {
      * Save auth state to localStorage
      */
     function saveToStorage() {
-        if (token.value && user.value) {
+        if (token.value) {
             localStorage.setItem("authToken", token.value);
+        }
+        if (user.value) {
             localStorage.setItem("authUser", JSON.stringify(user.value));
         }
     }

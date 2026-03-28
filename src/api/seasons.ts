@@ -4,11 +4,13 @@ import { PaginatedResponse } from "../types/api";
 
 export const seasonsApi = {
     async getSeasons(
-        page: number = 1,
-        pageSize: number = 10,
+        params: { pageIndex?: number; pageSize?: number; query?: string } = {},
     ): Promise<PaginatedResponse<SeasonDto>> {
+        const { pageIndex = 1, pageSize = 10, query = "" } = params;
+        const queryParams = [`pageIndex=${pageIndex}`, `pageSize=${pageSize}`];
+        if (query) queryParams.push(`query=${encodeURIComponent(query)}`);
         return apiClient.get<PaginatedResponse<SeasonDto>>(
-            `/admin/seasons?page=${page}&pageSize=${pageSize}`,
+            `/admin/seasons?${queryParams.join("&")}`,
         );
     },
 

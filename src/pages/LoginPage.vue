@@ -42,7 +42,9 @@ async function handleLogin() {
 </script>
 
 <template>
-    <div class="flex min-h-screen items-center justify-center bg-background p-4">
+    <div
+        class="flex min-h-screen items-center justify-center bg-background p-4"
+    >
         <div class="w-full max-w-md space-y-6">
             <!-- Logo -->
             <div class="flex flex-col items-center gap-2">
@@ -105,6 +107,7 @@ async function handleLogin() {
                         <Button
                             type="submit"
                             class="w-full"
+                            variant="outline"
                             :disabled="isSubmitting"
                         >
                             {{ isSubmitting ? "Logging in..." : "Login" }}

@@ -1,283 +1,461 @@
-// Dashboard Types
+/**
+ * ALOud REST API TypeScript Type Definitions
+ *
+ * This file contains all TypeScript interfaces for the ALOud REST API client.
+ * Organized by domain and follows REST API structure.
+ *
+ * API Base URL: /api/v1
+ * Authentication: JWT Bearer Token
+ */
+
+// =====================================================
+// API RESPONSE WRAPPER TYPES
+// =====================================================
+
+/**
+ * Standard API response wrapper for all endpoints
+ */
+export interface ApiResponse<T = unknown> {
+    success: boolean;
+    data?: T;
+    message?: string;
+    errors?: Record<string, string[]>;
+    timestamp?: string;
+}
+
+/**
+ * Paginated response wrapper for list endpoints
+ */
+export interface PaginatedResponse<T> {
+    items: T[];
+    pageIndex: number;
+    totalPages: number;
+    totalCount: number;
+    pageSize: number;
+    hasPreviousPage: boolean;
+    hasNextPage: boolean;
+}
+
+/**
+ * Helper type for extracting pagination meta from paginated response
+ */
+export type PaginationMeta = Omit<PaginatedResponse<any>, "items">;
+
+// =====================================================
+// DASHBOARD TYPES
+// =====================================================
+
 export interface DashboardStatsDto {
-  totalPerfumes: number;
-  totalBrands: number;
-  totalFamilies: number;
-  totalNotes: number;
-  totalAccords: number;
-  totalTags: number;
-  totalSeasons: number;
-  totalOccasions: number;
-  topBrands: BrandStatsDto[];
-  topFamilies: FamilyStatsDto[];
-  recentPerfumes: RecentPerfumeDto[];
+    totalPerfumes: number;
+    totalBrands: number;
+    totalFamilies: number;
+    totalNotes: number;
+    totalAccords: number;
+    totalTags: number;
+    totalSeasons: number;
+    totalOccasions: number;
+    topBrands: BrandStatsDto[];
+    topFamilies: FamilyStatsDto[];
+    recentPerfumes: RecentPerfumeDto[];
 }
 
 export interface BrandStatsDto {
-  brandId: string;
-  brandName: string;
-  perfumeCount: number;
+    brandId: string;
+    brandName: string;
+    perfumeCount: number;
 }
 
 export interface FamilyStatsDto {
-  familyId: string;
-  familyName: string;
-  perfumeCount: number;
+    familyId: string;
+    familyName: string;
+    perfumeCount: number;
 }
 
 export interface RecentPerfumeDto {
-  perfumeId: string;
-  perfumeName: string;
-  brandName: string;
-  genderProfile?: string;
-  imageUrl?: string;
-  createdAt: string;
+    perfumeId: string;
+    perfumeName: string;
+    brandName: string;
+    genderProfile?: string;
+    imageUrl?: string;
+    createdAt: string;
 }
 
-// Brand Types
+// =====================================================
+// BRAND TYPES
+// =====================================================
+
 export interface CreateBrandDto {
-  name: string;
+    name: string;
 }
 
 export interface UpdateBrandDto {
-  id: string;
-  name: string;
+    id: string;
+    name: string;
 }
 
 export interface BrandDto {
-  id: string;
-  name: string;
-  perfumeCount: number;
+    id: string;
+    name: string;
+    perfumeCount?: number;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export interface BrandSelectDto {
-  id: string;
-  name: string;
+    id: string;
+    name: string;
 }
 
-// Family Types
+// =====================================================
+// FAMILY TYPES
+// =====================================================
+
 export interface CreateFamilyDto {
-  name: string;
-  description?: string;
+    name: string;
+    description?: string;
 }
 
 export interface UpdateFamilyDto {
-  id: string;
-  name: string;
-  description?: string;
+    id: string;
+    name: string;
+    description?: string;
 }
 
 export interface FamilyDto {
-  id: string;
-  name: string;
-  description?: string;
-  perfumeCount: number;
+    id: string;
+    name: string;
+    description?: string;
+    perfumeCount?: number;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export interface FamilySelectDto {
-  id: string;
-  name: string;
+    id: string;
+    name: string;
 }
 
-// Perfume Types
-export interface PerfumeNoteSelectionDto {
-  noteId: string;
-  noteLevel?: 'Top' | 'Middle' | 'Base';
-}
+// =====================================================
+// TAG TYPES
+// =====================================================
 
-export interface PerfumeAccordSelectionDto {
-  accordId: string;
-  intensity?: 'Strong' | 'Medium' | 'Light';
-}
-
-export interface CreatePerfumeDto {
-  name: string;
-  intensity?: string;
-  longevity?: string;
-  sillage?: string;
-  genderProfile?: string;
-  priceRange?: string;
-  price: number;
-  stockQuantity: number;
-  description?: string;
-  imageUrl?: string;
-  brandId: string;
-  familyIds: string[];
-  noteSelections: PerfumeNoteSelectionDto[];
-  accordSelections: PerfumeAccordSelectionDto[];
-  tagIds: string[];
-  seasonIds: string[];
-  occasionIds: string[];
-}
-
-export interface UpdatePerfumeDto extends CreatePerfumeDto {
-  id: string;
-}
-
-export interface PerfumeDto {
-  id: string;
-  name: string;
-  intensity?: string;
-  longevity?: string;
-  sillage?: string;
-  genderProfile?: string;
-  priceRange?: string;
-  price: number;
-  stockQuantity: number;
-  description?: string;
-  imageUrl?: string;
-  brandId: string;
-  brandName: string;
-  families: string[];
-  createdAt: string;
-}
-
-export interface PerfumeDetailsDto extends PerfumeDto {
-  notes: PerfumeNoteDto[];
-  accords: PerfumeAccordDto[];
-  tags: string[];
-  seasons: string[];
-  occasions: string[];
-}
-
-export interface PerfumeNoteDto {
-  noteId: string;
-  noteName: string;
-  noteLevel?: string;
-}
-
-export interface PerfumeAccordDto {
-  accordId: string;
-  accordName: string;
-  intensity?: string;
-}
-
-// Note Types
-export interface CreateNoteDto {
-  name: string;
-  description?: string;
-  noteType?: string;
-  category?: string;
-  intensity?: number;
-  color?: string;
-  synonyms?: string;
-}
-
-export interface UpdateNoteDto extends CreateNoteDto {
-  id: string;
-}
-
-export interface NoteDto {
-  id: string;
-  name: string;
-  description?: string;
-  noteType?: string;
-  category?: string;
-  intensity?: number;
-  color?: string;
-  synonyms?: string;
-}
-
-// Accord Types
-export interface CreateAccordDto {
-  name: string;
-  description?: string;
-  compositionNotes?: string[];
-  effect?: string;
-  popularity?: number;
-}
-
-export interface UpdateAccordDto extends CreateAccordDto {
-  id: string;
-}
-
-export interface AccordDto {
-  id: string;
-  name: string;
-  description?: string;
-  compositionNotes?: string[];
-  effect?: string;
-  popularity?: number;
-}
-
-// Tag Types
 export interface CreateTagDto {
-  name: string;
-  description?: string;
-  color?: string;
-  category?: string;
+    name: string;
+    description?: string;
+    color?: string;
+    category?: string;
 }
 
-export interface UpdateTagDto extends CreateTagDto {
-  id: string;
+export interface UpdateTagDto {
+    id: string;
+    name: string;
+    description?: string;
+    color?: string;
+    category?: string;
 }
 
 export interface TagDto {
-  id: string;
-  name: string;
-  description?: string;
-  color?: string;
-  category?: string;
+    id: string;
+    name: string;
+    description?: string;
+    color?: string;
+    category?: string;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
-// Season Types
+export interface TagSelectDto {
+    id: string;
+    name: string;
+    color?: string;
+}
+
+// =====================================================
+// SEASON TYPES
+// =====================================================
+
 export interface CreateSeasonDto {
-  name: string;
-  description?: string;
-  recommendedNotes?: string[];
-  colorTheme?: string;
-  temperatureRange?: string;
+    name: string;
+    description?: string;
 }
 
-export interface UpdateSeasonDto extends CreateSeasonDto {
-  id: string;
+export interface UpdateSeasonDto {
+    id: string;
+    name: string;
+    description?: string;
 }
 
 export interface SeasonDto {
-  id: string;
-  name: string;
-  description?: string;
-  recommendedNotes?: string[];
-  colorTheme?: string;
-  temperatureRange?: string;
+    id: string;
+    name: string;
+    description?: string;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
-// Occasion Types
+export interface SeasonSelectDto {
+    id: string;
+    name: string;
+}
+
+// =====================================================
+// OCCASION TYPES
+// =====================================================
+
 export interface CreateOccasionDto {
-  name: string;
-  description?: string;
-  recommendedSillage?: string;
-  recommendedLongevity?: string;
-  timeOfDay?: string[];
-  gender?: string[];
+    name: string;
+    description?: string;
+    recommendedSillage?: string;
+    recommendedLongevity?: string;
 }
 
-export interface UpdateOccasionDto extends CreateOccasionDto {
-  id: string;
+export interface UpdateOccasionDto {
+    id: string;
+    name: string;
+    description?: string;
+    recommendedSillage?: string;
+    recommendedLongevity?: string;
 }
 
 export interface OccasionDto {
-  id: string;
-  name: string;
-  description?: string;
-  recommendedSillage?: string;
-  recommendedLongevity?: string;
-  timeOfDay?: string[];
-  gender?: string[];
+    id: string;
+    name: string;
+    description?: string;
+    recommendedSillage?: string;
+    recommendedLongevity?: string;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
-// API Response Wrapper
-export interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  message?: string;
-  errors?: Record<string, string[]>;
+export interface OccasionSelectDto {
+    id: string;
+    name: string;
 }
 
-export interface PaginatedResponse<T> {
-  data: T[];
-  total: number;
-  page: number;
-  pageSize: number;
-  totalPages: number;
+// =====================================================
+// NOTE TYPES
+// =====================================================
+
+export interface CreateNoteDto {
+    name: string;
+    description?: string;
+    noteType?: string;
+    category?: string;
+    intensity?: number;
+    color?: string;
 }
+
+export interface UpdateNoteDto {
+    id: string;
+    name: string;
+    description?: string;
+    noteType?: string;
+    category?: string;
+    intensity?: number;
+    color?: string;
+}
+
+export interface NoteDto {
+    id: string;
+    name: string;
+    description?: string;
+    noteType?: string;
+    category?: string;
+    intensity?: number;
+    color?: string;
+    createdAt?: string;
+    updatedAt?: string;
+}
+
+export interface NoteSelectDto {
+    id: string;
+    name: string;
+    category?: string;
+}
+
+/**
+ * Note selection for perfume with level/position
+ */
+export interface PerfumeNoteSelectionDto {
+    noteId: string;
+    noteLevel?: "Top" | "Middle" | "Base";
+}
+
+export interface PerfumeNoteDto {
+    noteId: string;
+    noteName: string;
+    noteLevel?: string;
+    category?: string;
+}
+
+// =====================================================
+// ACCORD TYPES
+// =====================================================
+
+export interface CreateAccordDto {
+    name: string;
+    description?: string;
+    effect?: string;
+    popularity?: number;
+}
+
+export interface UpdateAccordDto {
+    id: string;
+    name: string;
+    description?: string;
+    effect?: string;
+    popularity?: number;
+}
+
+export interface AccordDto {
+    id: string;
+    name: string;
+    description?: string;
+    effect?: string;
+    popularity?: number;
+    createdAt?: string;
+    updatedAt?: string;
+}
+
+export interface AccordSelectDto {
+    id: string;
+    name: string;
+}
+
+/**
+ * Accord selection for perfume with intensity
+ */
+export interface PerfumeAccordSelectionDto {
+    accordId: string;
+    intensity?: "Strong" | "Medium" | "Light";
+}
+
+export interface PerfumeAccordDto {
+    accordId: string;
+    accordName: string;
+    intensity?: "Strong" | "Medium" | "Light";
+}
+
+// =====================================================
+// PERFUME TYPES
+// =====================================================
+
+export interface CreatePerfumeDto {
+    name: string;
+    brandId: string;
+    price: number;
+    stockQuantity: number;
+    description?: string;
+    imageUrl?: string;
+    intensity?: string;
+    longevity?: string;
+    sillage?: string;
+    genderProfile?: string;
+    familyIds?: string[];
+    noteSelections?: PerfumeNoteSelectionDto[];
+    accordSelections?: PerfumeAccordSelectionDto[];
+    tagIds?: string[];
+    seasonIds?: string[];
+    occasionIds?: string[];
+}
+
+export interface UpdatePerfumeDto {
+    id: string;
+    name: string;
+    brandId: string;
+    price: number;
+    stockQuantity: number;
+    description?: string;
+    imageUrl?: string;
+    intensity?: string;
+    longevity?: string;
+    sillage?: string;
+    genderProfile?: string;
+    familyIds?: string[];
+    noteSelections?: PerfumeNoteSelectionDto[];
+    accordSelections?: PerfumeAccordSelectionDto[];
+    tagIds?: string[];
+    seasonIds?: string[];
+    occasionIds?: string[];
+}
+
+export interface PerfumeDto {
+    id: string;
+    name: string;
+    brandId: string;
+    brandName: string;
+    price: number;
+    stockQuantity: number;
+    description?: string;
+    imageUrl?: string;
+    intensity?: string;
+    longevity?: string;
+    sillage?: string;
+    genderProfile?: string;
+    families?: FamilySelectDto[];
+    tags?: TagSelectDto[];
+    createdAt?: string;
+    updatedAt?: string;
+}
+
+export interface PerfumeDetailsDto extends PerfumeDto {
+    notes?: PerfumeNoteDto[];
+    accords?: PerfumeAccordDto[];
+    seasons?: SeasonSelectDto[];
+    occasions?: OccasionSelectDto[];
+}
+
+export interface PerfumeSelectDto {
+    id: string;
+    name: string;
+    brandName: string;
+}
+
+// =====================================================
+// AUTHENTICATION TYPES
+// =====================================================
+
+export interface RegisterDto {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+}
+
+export interface LoginDto {
+    email: string;
+    password: string;
+}
+
+export interface LoginResponseDto {
+    message: string;
+    token: string;
+    user: UserDto;
+}
+
+export interface UserDto {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    isEmailVerified?: boolean;
+    createdAt?: string;
+}
+
+export interface VerifyEmailDto {
+    email: string;
+    code: string;
+}
+
+export interface ResendVerificationDto {
+    email: string;
+}
+
+// =====================================================
+// API REQUEST/RESPONSE HELPERS
+// =====================================================
+
+/**
+ * Helper type for extracting data from paginated response
+ */
+export type PaginatedData<T> = PaginatedResponse<T>["items"];

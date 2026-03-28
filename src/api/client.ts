@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosError } from "axios";
+import router from "../router";
 
 // Environment configuration
 const VITE_API_URL =
@@ -62,7 +63,8 @@ class ApiClient {
                         "[API Client] Unauthorized - clearing auth token",
                     );
                     localStorage.removeItem("authToken");
-                    window.location.href = "/login";
+                    // Use router to prevent full page reload
+                    router.push("/login");
                 }
 
                 // Log errors based on level
