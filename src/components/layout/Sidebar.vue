@@ -17,6 +17,7 @@ import {
     Settings,
     ChevronLeft,
     Droplets,
+    Palette,
 } from "lucide-vue-next";
 
 const collapsed = ref(false);
@@ -43,6 +44,7 @@ const catalogItems = [
 const systemItems = [
     { path: "/expert-system", label: "Expert System", icon: Brain },
     { path: "/llm-config", label: "LLM Config", icon: Settings },
+    { path: "/appearance", label: "Appearance", icon: Palette },
 ];
 </script>
 

@@ -70,6 +70,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import("../pages/LLMConfigPage.vue"),
         meta: { title: "LLM Configuration", requiresAuth: true },
     },
+    {
+        path: "/appearance",
+        component: () => import("../pages/AppearancePage.vue"),
+        meta: { title: "Appearance", requiresAuth: true },
+    },
 
     // Default redirect
     {
