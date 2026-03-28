@@ -20,7 +20,7 @@ const emit = defineEmits<{
         >
             <!-- Backdrop -->
             <div
-                class="absolute inset-0 bg-background/80 backdrop-blur-sm transition-opacity"
+                class="absolute inset-0 bg-background/60 backdrop-blur-md transition-all duration-500 ease-in-out"
                 @click="emit('update:open', false)"
             />
 
@@ -28,7 +28,7 @@ const emit = defineEmits<{
             <div
                 :class="
                     cn(
-                        'relative z-50 w-full max-w-lg rounded-lg border border-border bg-card p-6 shadow-lg animate-in fade-in zoom-in-95 duration-200',
+                        'relative z-50 w-full max-w-lg rounded-2xl border border-border bg-card p-8 shadow-2xl animate-in fade-in zoom-in-90 slide-in-from-bottom-4 duration-300 ease-out',
                         props.class,
                     )
                 "

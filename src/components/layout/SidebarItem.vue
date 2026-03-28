@@ -26,16 +26,30 @@ const isActive = computed(() => {
         :to="path"
         :class="
             cn(
-                'flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-all duration-200',
+                'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-300 ease-in-out',
                 isActive
-                    ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
-                    : 'text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
-                collapsed && 'justify-center px-2',
+                    ? 'bg-sidebar-accent/50 text-sidebar-accent-foreground font-semibold shadow-sm overflow-hidden'
+                    : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/30 hover:text-sidebar-accent-foreground hover:translate-x-1',
+                collapsed && 'justify-center px-2 hover:translate-x-0',
             )
         "
         :title="collapsed ? label : undefined"
     >
-        <component :is="icon" class="h-4 w-4 shrink-0" />
-        <span v-if="!collapsed" class="truncate">{{ label }}</span>
+        <!-- Active Indicator Bar -->
+        <div 
+            v-if="isActive" 
+            class="absolute left-0 top-2 bottom-2 w-1 bg-primary rounded-r-full animate-in slide-in-from-left-full duration-300"
+        ></div>
+
+        <component :is="icon" 
+            :class="cn(
+                'h-5 w-5 shrink-0 transition-transform duration-300 group-hover:scale-110', 
+                isActive ? 'text-primary' : 'text-sidebar-foreground/40 group-hover:text-sidebar-accent-foreground'
+            )" 
+        />
+        <span v-if="!collapsed" class="truncate tracking-wide">{{ label }}</span>
+        
+        <!-- Subtle Glow for Active Item -->
+        <div v-if="isActive && !collapsed" class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
     </router-link>
 </template>

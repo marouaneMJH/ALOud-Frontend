@@ -78,8 +78,12 @@ watch(searchQuery, (val) => {
                     class="pl-9"
                 />
             </div>
-            <Button @click="$emit('create')">
-                <Plus class="h-4 w-4 mr-2" />
+            <Button 
+                @click="$emit('create')" 
+                variant="default"
+                class="px-6 py-5 rounded-xl font-bold shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300 active:scale-95"
+            >
+                <Plus class="h-5 w-5 mr-2" />
                 New {{ entityName }}
             </Button>
         </div>
@@ -119,20 +123,22 @@ watch(searchQuery, (val) => {
                             {{ item[col.key] }}
                         </TableCell>
                         <TableCell>
-                            <div class="flex items-center gap-1">
+                            <div class="flex items-center gap-2">
                                 <Button
-                                    variant="ghost"
+                                    variant="outline"
                                     size="icon"
-                                    class="h-8 w-8"
+                                    class="h-9 w-9 border-muted-foreground/20 hover:border-primary hover:bg-primary/10 hover:text-primary transition-all duration-300"
                                     @click="$emit('edit', item)"
+                                    title="Edit"
                                 >
                                     <Pencil class="h-4 w-4" />
                                 </Button>
                                 <Button
-                                    variant="ghost"
+                                    variant="outline"
                                     size="icon"
-                                    class="h-8 w-8 text-destructive hover:text-destructive"
+                                    class="h-9 w-9 border-muted-foreground/20 hover:border-destructive hover:bg-destructive/10 hover:text-destructive transition-all duration-300"
                                     @click="$emit('delete', item)"
+                                    title="Delete"
                                 >
                                     <Trash2 class="h-4 w-4" />
                                 </Button>
