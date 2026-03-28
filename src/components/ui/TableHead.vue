@@ -12,7 +12,7 @@ withDefaults(defineProps<Props>(), {});
     <th
         :class="
             cn(
-                'h-12 px-4 text-left align-middle font-semibold hover:bg-muted/50 transition-colors text-foreground [&:has([role=checkbox])]:pr-0',
+                'h-12 px-4 text-left align-middle font-semibold transition-colors text-foreground [&:has([role=checkbox])]:pr-0',
                 $props.class,
             )
         "

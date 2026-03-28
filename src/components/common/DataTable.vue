@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { cn } from "@/lib/utils";
 import Button from "@/components/ui/Button.vue";
 import Input from "@/components/ui/Input.vue";
 import Card from "@/components/ui/Card.vue";
@@ -62,8 +61,6 @@ watch(searchQuery, (val) => {
         emit("search", val);
     }, 400);
 });
-
-const hoveredCol = ref<string | null>(null);
 </script>
 
 <template>
@@ -117,9 +114,6 @@ const hoveredCol = ref<string | null>(null);
                         <TableHead 
                             v-for="col in columns" 
                             :key="col.key"
-                            @mouseenter="hoveredCol = col.key"
-                            @mouseleave="hoveredCol = null"
-                            :class="cn('transition-colors duration-200', hoveredCol === col.key && 'bg-primary/10')"
                         >
                             {{ col.label }}
                         </TableHead>
@@ -131,9 +125,6 @@ const hoveredCol = ref<string | null>(null);
                         <TableCell 
                             v-for="col in columns" 
                             :key="col.key"
-                            @mouseenter="hoveredCol = col.key"
-                            @mouseleave="hoveredCol = null"
-                            :class="cn('transition-colors duration-200', hoveredCol === col.key && 'bg-primary/10')"
                         >
                             {{ item[col.key] }}
                         </TableCell>

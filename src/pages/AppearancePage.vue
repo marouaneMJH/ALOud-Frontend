@@ -82,24 +82,7 @@ const selectTheme = (themeId: string) => {
                     </div>
                 </section>
 
-                <!-- Additional Settings (Placeholders for "Contrast", etc as in the image) -->
-                <Card class="border-border/50">
-                    <CardHeader>
-                        <CardTitle class="text-base">Contrast & Accessibility</CardTitle>
-                        <CardDescription>Enhance visibility by adjusting contrast levels.</CardDescription>
-                    </CardHeader>
-                    <CardContent class="grid gap-4">
-                        <div class="flex items-center justify-between p-4 rounded-lg bg-muted/30 border border-border/50">
-                            <div class="space-y-0.5">
-                                <Label class="text-sm font-bold">Increase contrast</Label>
-                                <p class="text-xs text-muted-foreground">Make colors more distinct and accessible.</p>
-                            </div>
-                            <div class="flex items-center gap-2 px-3 py-1 bg-muted rounded-full text-[10px] font-bold uppercase text-muted-foreground">
-                                Coming Soon
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
+
             </div>
         </div>
     </Layout>

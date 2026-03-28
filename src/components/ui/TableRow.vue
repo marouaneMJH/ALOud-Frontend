@@ -12,7 +12,7 @@ withDefaults(defineProps<Props>(), {});
     <tr
         :class="
             cn(
-                'border-b border-border/50 transition-all duration-300 hover:bg-muted/50 data-[state=selected]:bg-muted cursor-default',
+                'border-b border-border/50 transition-all duration-300 hover:bg-primary/10 data-[state=selected]:bg-muted cursor-default',
                 $props.class,
             )
         "

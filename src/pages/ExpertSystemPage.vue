@@ -153,7 +153,7 @@ const formatResult = (text: string) => {
 <template>
     <Layout page-title="AI Expert System">
         <div class="max-w-4xl mx-auto py-8">
-            <div class="text-center mb-10 space-y-4">
+            <!-- <div class="text-center mb-10 space-y-4">
                 <div class="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-2">
                     <Sparkles class="w-8 h-8 text-primary animate-pulse" />
                 </div>
@@ -163,7 +163,7 @@ const formatResult = (text: string) => {
                 <p class="text-muted-foreground text-lg max-w-xl mx-auto">
                     Let our expert system curate the perfect fragrance profile based on your environment, personality, and desires.
                 </p>
-            </div>
+            </div> -->
 
             <!-- Multi-step Form -->
             <div v-if="currentStep <= totalSteps" class="space-y-8">
@@ -460,6 +460,7 @@ const formatResult = (text: string) => {
                                         class="text-xl text-muted-foreground leading-relaxed italic"
                                         v-html="formatResult(result.result || '')"
                                     ></p>
+
                                 </div>
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8">
