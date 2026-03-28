@@ -452,6 +452,42 @@ export interface ResendVerificationDto {
 }
 
 // =====================================================
+// AI EXPERT SYSTEM TYPES
+// =====================================================
+
+export enum EClimate { Hot, Cold, Humid, Mixed }
+export enum EOccasion { Office, Formal, Date, Nightlife, Sport, Daily, Gym }
+export enum ESkinType { Dry, Oily, Normal }
+export enum EComplimentDesire { Yes, No, Neutral }
+export enum ESeasonPreference { Spring, Summer, Fall, Winter, AllYear }
+export enum EPersona { Corporate, Sexy, Sporty, Artistic, Minimalist, Rebellious, Elegant, Youthful, Mature, Mysterious }
+export enum ESensitivity { None, Migraine, HatesSweet, HatesSpice, HatesFloral, HatesFresh, PrefersMinimal }
+
+export interface UserProfileDto {
+    climate: EClimate;
+    occasion: EOccasion;
+    skinType: ESkinType;
+    compliment: EComplimentDesire;
+    seasonPreference: ESeasonPreference;
+    persona: EPersona;
+    sensitivity: ESensitivity;
+    wantsLongPerformance: boolean;
+}
+
+export interface RecommendationDto {
+    prefer?: string[];
+    avoid?: string[];
+    sillage?: string;
+    longevity?: string;
+    reasons?: string[];
+    result?: string;
+}
+
+export interface ExpertSystemResult extends RecommendationDto {
+    // result is the LLM explanation
+}
+
+// =====================================================
 // API REQUEST/RESPONSE HELPERS
 // =====================================================
 

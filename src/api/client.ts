@@ -121,10 +121,17 @@ class ApiClient {
     async post<T>(url: string, data?: any): Promise<T> {
         try {
             const response = await this.client.post<any>(url, data);
-            // Check if response is wrapped in { success, data } format
-            if (response.data && response.data.success !== undefined) {
-                return response.data;
+            
+            // Handle wrapped response format { success: boolean, data: T }
+            if (
+                response.data &&
+                typeof response.data === "object" &&
+                "data" in response.data &&
+                "success" in response.data
+            ) {
+                return (response.data as any).data;
             }
+
             return response.data;
         } catch (error) {
             console.error("API POST request failed:", error);
