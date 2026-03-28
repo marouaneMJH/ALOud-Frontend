@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
+import { cn } from "@/lib/utils";
 import Button from "@/components/ui/Button.vue";
 import Input from "@/components/ui/Input.vue";
 import Card from "@/components/ui/Card.vue";
@@ -61,6 +62,8 @@ watch(searchQuery, (val) => {
         emit("search", val);
     }, 400);
 });
+
+const hoveredCol = ref<string | null>(null);
 </script>
 
 <template>
@@ -111,7 +114,13 @@ watch(searchQuery, (val) => {
             <Table v-if="items.length > 0">
                 <TableHeader>
                     <TableRow>
-                        <TableHead v-for="col in columns" :key="col.key">
+                        <TableHead 
+                            v-for="col in columns" 
+                            :key="col.key"
+                            @mouseenter="hoveredCol = col.key"
+                            @mouseleave="hoveredCol = null"
+                            :class="cn('transition-colors duration-200', hoveredCol === col.key && 'bg-primary/10')"
+                        >
                             {{ col.label }}
                         </TableHead>
                         <TableHead class="w-25">Actions</TableHead>
@@ -119,7 +128,13 @@ watch(searchQuery, (val) => {
                 </TableHeader>
                 <TableBody>
                     <TableRow v-for="item in items" :key="item.id">
-                        <TableCell v-for="col in columns" :key="col.key">
+                        <TableCell 
+                            v-for="col in columns" 
+                            :key="col.key"
+                            @mouseenter="hoveredCol = col.key"
+                            @mouseleave="hoveredCol = null"
+                            :class="cn('transition-colors duration-200', hoveredCol === col.key && 'bg-primary/10')"
+                        >
                             {{ item[col.key] }}
                         </TableCell>
                         <TableCell>

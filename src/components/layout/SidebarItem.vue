@@ -28,8 +28,8 @@ const isActive = computed(() => {
             cn(
                 'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-300 ease-in-out',
                 isActive
-                    ? 'bg-sidebar-accent/50 text-sidebar-accent-foreground font-semibold shadow-sm overflow-hidden'
-                    : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/30 hover:text-sidebar-accent-foreground hover:translate-x-1',
+                    ? 'bg-primary text-primary-foreground font-bold shadow-lg shadow-primary/20 overflow-hidden'
+                    : 'text-sidebar-foreground/70 hover:bg-primary/20 hover:text-sidebar-accent-foreground hover:translate-x-1.5',
                 collapsed && 'justify-center px-2 hover:translate-x-0',
             )
         "
@@ -44,7 +44,7 @@ const isActive = computed(() => {
         <component :is="icon" 
             :class="cn(
                 'h-5 w-5 shrink-0 transition-transform duration-300 group-hover:scale-110', 
-                isActive ? 'text-primary' : 'text-sidebar-foreground/40 group-hover:text-sidebar-accent-foreground'
+                isActive ? 'text-primary-foreground' : 'text-sidebar-foreground/40 group-hover:text-sidebar-accent-foreground'
             )" 
         />
         <span v-if="!collapsed" class="truncate tracking-wide">{{ label }}</span>

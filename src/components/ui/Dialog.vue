@@ -20,7 +20,7 @@ const emit = defineEmits<{
         >
             <!-- Backdrop -->
             <div
-                class="absolute inset-0 bg-background/60 backdrop-blur-md transition-all duration-500 ease-in-out"
+                class="absolute inset-0 bg-black/70 backdrop-blur-md transition-all duration-500 ease-in-out"
                 @click="emit('update:open', false)"
             />
 

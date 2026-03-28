@@ -9,7 +9,7 @@ withDefaults(defineProps<Props>(), {});
 </script>
 
 <template>
-    <thead :class="cn('border-b border-border bg-muted/40 text-primary font-semibold backdrop-blur-sm', $props.class)">
+    <thead :class="cn('border-b border-border bg-primary/20 text-primary font-bold backdrop-blur-sm', $props.class)">
         <slot />
     </thead>
 </template>
