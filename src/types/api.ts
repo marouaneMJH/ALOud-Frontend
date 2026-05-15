@@ -455,13 +455,64 @@ export interface ResendVerificationDto {
 // AI EXPERT SYSTEM TYPES
 // =====================================================
 
-export enum EClimate { Hot, Cold, Humid, Mixed }
-export enum EOccasion { Office, Formal, Date, Nightlife, Sport, Daily, Gym }
-export enum ESkinType { Dry, Oily, Normal }
-export enum EComplimentDesire { Yes, No, Neutral }
-export enum ESeasonPreference { Spring, Summer, Fall, Winter, AllYear }
-export enum EPersona { Corporate, Sexy, Sporty, Artistic, Minimalist, Rebellious, Elegant, Youthful, Mature, Mysterious }
-export enum ESensitivity { None, Migraine, HatesSweet, HatesSpice, HatesFloral, HatesFresh, PrefersMinimal }
+export enum EClimate {
+    Hot,
+    Cold,
+    Humid,
+    Mixed,
+}
+export enum EOccasion {
+    Office,
+    Formal,
+    Date,
+    Nightlife,
+    Sport,
+    Daily,
+    Gym,
+}
+export enum ESkinType {
+    Dry,
+    Oily,
+    Normal,
+}
+export enum EComplimentDesire {
+    Yes,
+    No,
+    Neutral,
+}
+export enum ESeasonPreference {
+    Spring,
+    Summer,
+    Fall,
+    Winter,
+    AllYear,
+}
+export enum EPersona {
+    Corporate,
+    Sexy,
+    Sporty,
+    Artistic,
+    Minimalist,
+    Rebellious,
+    Elegant,
+    Youthful,
+    Mature,
+    Mysterious,
+}
+export enum ESensitivity {
+    None,
+    Migraine,
+    HatesSweet,
+    HatesSpice,
+    HatesFloral,
+    HatesFresh,
+    PrefersMinimal,
+}
+export enum EGender {
+    Masculine,
+    Feminine,
+    Unisex,
+}
 
 export interface UserProfileDto {
     climate: EClimate;
@@ -471,16 +522,24 @@ export interface UserProfileDto {
     seasonPreference: ESeasonPreference;
     persona: EPersona;
     sensitivity: ESensitivity;
+    gender?: EGender;
     wantsLongPerformance: boolean;
+}
+
+export interface ProductRecommendation {
+    name: string;
+    brand: string;
+    imageUrl?: string | null;
 }
 
 export interface RecommendationDto {
     prefer?: string[];
     avoid?: string[];
-    sillage?: string;
-    longevity?: string;
+    sillage?: string | null;
+    longevity?: string | null;
     reasons?: string[];
     result?: string;
+    products?: ProductRecommendation[];
 }
 
 export interface ExpertSystemResult extends RecommendationDto {
